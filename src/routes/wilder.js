@@ -1,5 +1,7 @@
 import express from 'express';
 import WilderModel from '../models/wilderModel';
+import { wilderValidation } from '../middlewares';
+import { listErrors } from '../utils/tools';
 
 const router = express.Router();
 
@@ -42,7 +44,7 @@ router.get('/:id', async (req, res) => {
 /**
  * add wilder
  */
-router.post('/', async (req, res) => {
+router.post('/', wilderValidation.create, async (req, res) => {
     try {
         await WilderModel.init();
         const newWilder = WilderModel(req.body);
@@ -52,7 +54,7 @@ router.post('/', async (req, res) => {
     } catch (err) {
         res.status(500).json({
             message: 'Error saving the wilder',
-            error: err.message,
+            error: listErrors(err),
         });
     }
 });
