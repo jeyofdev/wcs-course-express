@@ -22,6 +22,10 @@ connectDb(MONGO_URI, dbConnectOptions);
 // Routes
 server.use('/api', routes);
 
+server.use((req, res) => {
+    res.status(404).json({ message: 'Route 404' });
+});
+
 server.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
