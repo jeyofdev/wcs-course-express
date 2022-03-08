@@ -12,6 +12,8 @@ const MONGO_URI = process.env.MONGO_URI;
 
 // Express
 const server = express();
+server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
 
 // Database connect
 const dbConnectOptions = { autoIndex: true };
