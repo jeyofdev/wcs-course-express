@@ -32,6 +32,12 @@ router.get('/:id', async (req, res) => {
         await WilderModel.init();
         const result = await WilderModel.findById(id);
 
+        if (!result) {
+            return res.status(302).json({
+                message: 'No wilder found with this id',
+            });
+        }
+
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json({
@@ -68,6 +74,12 @@ router.put('/:id', async (req, res) => {
         const { id } = req.params;
         const result = await WilderModel.updateOne({ _id: id }, req.body);
 
+        if (result.matchedCount === 0) {
+            return res.status(302).json({
+                message: 'No wilder found with this id',
+            });
+        }
+
         res.status(200).json({
             message: 'Wilder updated successfully',
             result,
@@ -88,6 +100,12 @@ router.delete('/:id', async (req, res) => {
         await WilderModel.init();
         const { id } = req.params;
         const result = await WilderModel.deleteOne({ _id: id });
+
+        if (result.deletedCount === 0) {
+            return res.status(302).json({
+                message: 'No wilder found with this id',
+            });
+        }
 
         res.status(200).json({
             message: 'Wilder deleted successfully',
