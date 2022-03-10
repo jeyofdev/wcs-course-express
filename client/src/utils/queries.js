@@ -6,3 +6,10 @@ export const getAllWilders = () => {
         .then((response) => response.data)
         .catch((err) => err);
 };
+
+export const addNewWilder = (datas) => {
+    axios
+        .post('/api/wilders', datas)
+        .then(() => {})
+        .catch((err) => err);
+};
