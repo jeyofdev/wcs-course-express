@@ -22,7 +22,7 @@ const CreateWilder = ({ isShow, refetch }) => {
         await addNewWilder(formDatas);
 
         refetch();
-        notifySuccess('Wilder added with success');
+        notifySuccess(`Wilder ${formDatas.name} added with success`);
         setFormDatas({
             name: '',
             city: '',

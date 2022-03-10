@@ -5,10 +5,11 @@ import { XCircleIcon } from '@heroicons/react/solid';
 import { deleteWilder } from '../../utils/queries';
 import { notifyDanger } from '../../utils/notification';
 
-const Card = ({ id, name, city, skills }) => {
+const Card = ({ id, name, city, skills, refetch }) => {
     const handleDelete = () => {
         deleteWilder(id);
-        notifyDanger('Wilder deleted with success');
+        notifyDanger(`Wilder ${name} deleted with success`);
+        refetch();
     };
 
     return (

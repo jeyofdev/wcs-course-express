@@ -27,13 +27,13 @@ const App = () => {
 
     useEffect(() => {
         fetchDatas();
-    }, [wilders]);
+    }, []);
 
     return (
         <div className="App">
             <Layout>
                 {!loading ? (
-                    <WilderList wilders={wilders} />
+                    <WilderList wilders={wilders} refetch={fetchDatas} />
                 ) : (
                     <Alert>Loading wilders...</Alert>
                 )}

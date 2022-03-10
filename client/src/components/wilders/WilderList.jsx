@@ -1,7 +1,7 @@
 import Card from './Card';
 import Alert from '../ui/Alert.jsx';
 
-const WilderList = ({ wilders }) => {
+const WilderList = ({ wilders, refetch }) => {
     return (
         <>
             {wilders.length > 0 ? (
@@ -13,6 +13,7 @@ const WilderList = ({ wilders }) => {
                             name={wilder.name}
                             city={wilder.city}
                             skills={wilder.skills}
+                            refetch={refetch}
                         />
                     ))}
                 </div>
