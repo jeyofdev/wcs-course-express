@@ -27,7 +27,7 @@ const App = () => {
 
     useEffect(() => {
         fetchDatas();
-    }, []);
+    }, [wilders]);
 
     return (
         <div className="App">
