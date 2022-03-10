@@ -1,7 +1,9 @@
+import Layout from './components/layout/Layout';
+
 const App = () => {
     return (
-        <div className="App bg-blue-200">
-            <h1>Home page</h1>
+        <div className="App">
+            <Layout />
         </div>
     );
 };
