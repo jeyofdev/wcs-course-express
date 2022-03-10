@@ -1,11 +1,14 @@
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
 import Badge from './badge';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { deleteWilder } from '../../utils/queries';
+import { notifyDanger } from '../../utils/notification';
 
 const Card = ({ id, name, city, skills }) => {
     const handleDelete = () => {
         deleteWilder(id);
+        notifyDanger('Wilder deleted with success');
     };
 
     return (
@@ -39,6 +42,7 @@ const Card = ({ id, name, city, skills }) => {
                     ))}
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

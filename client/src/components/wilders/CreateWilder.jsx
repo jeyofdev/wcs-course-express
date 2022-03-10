@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import Button from '../ui/Button';
+import { ToastContainer } from 'react-toastify';
 import { optionsCities } from '../../datas';
 import { addNewWilder } from '../../utils/queries';
+import { notifySuccess } from '../../utils/notification';
 
 const CreateWilder = ({ isShow, refetch }) => {
     const [formDatas, setFormDatas] = useState({
@@ -20,6 +22,7 @@ const CreateWilder = ({ isShow, refetch }) => {
         await addNewWilder(formDatas);
 
         refetch();
+        notifySuccess('Wilder added with success');
         setFormDatas({
             name: '',
             city: '',
@@ -70,6 +73,8 @@ const CreateWilder = ({ isShow, refetch }) => {
                     <Button className="ml-0">Add</Button>
                 </form>
             )}
+
+            <ToastContainer />
         </>
     );
 };
