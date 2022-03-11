@@ -21,8 +21,6 @@ const Home = () => {
         fetchDatas();
     }, []);
 
-    console.log(wilders);
-
     return (
         <>
             {!loading ? (
