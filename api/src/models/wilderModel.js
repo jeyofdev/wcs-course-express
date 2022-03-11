@@ -5,7 +5,7 @@ const WilderSchema = new Schema(
     {
         name: {
             type: String,
-            unique: true,
+            unique: [true, 'The name must be unique'],
             required: [true, 'The name is required.'],
         },
         city: {

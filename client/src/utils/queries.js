@@ -8,9 +8,9 @@ export const getAllWilders = () => {
 };
 
 export const addNewWilder = (datas) => {
-    axios
+    return axios
         .post('/api/wilders', datas)
-        .then(() => {})
+        .then((response) => response.data)
         .catch((err) => err);
 };
 

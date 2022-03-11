@@ -3,7 +3,7 @@ import Button from '../ui/Button';
 import { ToastContainer } from 'react-toastify';
 import { optionsCities } from '../../datas';
 import { addNewWilder } from '../../utils/queries';
-import { notifySuccess } from '../../utils/notification';
+import { notifySuccess, notifyDanger } from '../../utils/notification';
 
 const CreateWilder = ({ isShow, refetch }) => {
     const [formDatas, setFormDatas] = useState({
@@ -19,15 +19,21 @@ const CreateWilder = ({ isShow, refetch }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        await addNewWilder(formDatas);
+        const data = await addNewWilder(formDatas);
 
-        refetch();
-        notifySuccess(`Wilder ${formDatas.name} added with success`);
-        setFormDatas({
-            name: '',
-            city: '',
-            skills: [],
-        });
+        if(data.success) {
+            refetch();
+            notifySuccess(data.message);
+            setFormDatas({
+                name: '',
+                city: '',
+                skills: [],
+            });
+        } else if (!data.success && data.result){
+            notifyDanger(Object.values(data.result).map(message => message).join(', '));
+        } else {
+            notifyDanger("The name must be unique");
+        }
     };
 
     return (

@@ -1,7 +1,7 @@
 import Card from './Card';
 import Alert from '../ui/Alert.jsx';
 
-const WilderList = ({ wilders, refetch }) => {
+const WilderList = ({ wilders, refetch, showForm }) => {
     return (
         <>
             {wilders.length > 0 ? (

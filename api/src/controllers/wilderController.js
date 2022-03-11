@@ -5,14 +5,14 @@ import { listErrors } from '../utils/tools';
 /**
  * Get All wilders
  */
-export const find = async (_, res) => {
+export const find = async (req, res) => {
     try {
         await WilderModel.init();
         const results = await WilderModel.find();
 
         res.status(200).json(results);
     } catch (err) {
-        response.status(500).json({
+        res.status(500).json({
             message: 'Error retrieving data from database',
             error: err.message,
         });
@@ -53,7 +53,11 @@ export const save = async (req, res) => {
         const newWilder = WilderModel(req.body);
         const result = await newWilder.save();
 
-        res.status(200).json({ message: 'Wilder successfully saved', result });
+        res.status(200).json({
+            success: true,
+            message: 'Wilder successfully saved',
+            result,
+        });
     } catch (err) {
         res.status(500).json({
             message: 'Error saving the wilder',
