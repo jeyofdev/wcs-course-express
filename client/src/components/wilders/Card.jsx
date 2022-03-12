@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skill from '../skills/Skill';
 import { XCircleIcon, PencilAltIcon } from '@heroicons/react/solid';
+import Modal from '../ui/modal';
+import Dialog from '../ui/modal/Dialog';
 
 const Card = ({ id, name, city, skills, handleDelete }) => {
     const navigate = useNavigate();
+    const [modalIsShow, setModalIsShow] = useState(false);
 
     return (
         <div className="relative rounded-lg border-solid border-gray-200 border-2 sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto">
@@ -19,7 +23,9 @@ const Card = ({ id, name, city, skills, handleDelete }) => {
 
             <button
                 className="absolute right-2 mt-2"
-                onClick={() => handleDelete(id)}
+                onClick={() => {
+                    setModalIsShow(!modalIsShow);
+                }}
             >
                 <XCircleIcon className="h-7 w-7 text-red-500" />
             </button>
@@ -49,6 +55,14 @@ const Card = ({ id, name, city, skills, handleDelete }) => {
                     ))}
                 </div>
             </div>
+
+            <Modal isShow={modalIsShow} handleClose={setModalIsShow}>
+                <Dialog
+                    text="Are you sure you want to delete this wilder 😢 ??"
+                    handleCancel={() => setModalIsShow(false)}
+                    handleConfirm={() => handleDelete(id)}
+                />
+            </Modal>
         </div>
     );
 };
