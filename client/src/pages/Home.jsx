@@ -24,7 +24,7 @@ const Home = () => {
     return (
         <>
             {!loading ? (
-                <WilderList wilders={wilders} />
+                <WilderList wilders={wilders} refetch={fetchDatas} />
             ) : (
                 <Alert>Loading wilders...</Alert>
             )}

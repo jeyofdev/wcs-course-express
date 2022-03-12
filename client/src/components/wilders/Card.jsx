@@ -1,8 +1,19 @@
+import { deleteWilder } from '../../utils/queries';
 import Badge from '../skills/Badge';
+import { XCircleIcon } from '@heroicons/react/solid';
 
-const Card = ({ name, city, skills }) => {
+const Card = ({ id, name, city, skills, refetch }) => {
+    const handleDelete = () => {
+        deleteWilder(id);
+        refetch();
+    };
+
     return (
         <div className="relative rounded-lg border-solid border-gray-200 border-2 sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto">
+            <button className="absolute right-2 mt-2" onClick={handleDelete}>
+                <XCircleIcon className="h-7 w-7 text-red-500" />
+            </button>
+
             <img
                 className="max-w-200px mx-auto w-full"
                 src="https://us.123rf.com/450wm/kritchanut/kritchanut1401/kritchanut140100054/25251050-photo-de-profil-d-affaires-de-l-avatar.jpg?ver=6"

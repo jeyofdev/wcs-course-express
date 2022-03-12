@@ -13,3 +13,10 @@ export const addNewWilder = (datas) => {
         .then((response) => response.data)
         .catch((err) => err);
 };
+
+export const deleteWilder = (id) => {
+    axios
+        .delete(`/api/wilders/${id}`)
+        .then((response) => response.data)
+        .catch((err) => err);
+};
