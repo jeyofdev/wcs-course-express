@@ -1,5 +1,7 @@
 import Button from '../ui/Button';
+import Select from '../ui/form/Select';
 import { optionsCities } from '../../datas';
+import Input from '../ui/form/Input';
 
 const WilderForm = ({
     formDatas,
@@ -13,36 +15,26 @@ const WilderForm = ({
             onSubmit={handleSubmit}
         >
             <div className="mb-6">
-                <label className="mb-3 block" htmlFor="name">
-                    Name :{' '}
-                </label>
-                <input
-                    className="bg-white border border-gray-300 p-4 rounded-lg w-full"
-                    type="text"
+                <Input
+                    value={formDatas.name}
+                    handleChange={handleChange}
                     name="name"
                     placeholder="enter name"
-                    value={formDatas.name}
-                    onChange={handleChange}
+                    className="w-full"
+                    label
                 />
             </div>
             <div className="mb-6">
-                <label className="mb-3 block" htmlFor="city">
-                    City :{' '}
-                </label>
-                <select
-                    className="bg-white border border-gray-300 p-4 rounded-lg w-full"
+                <Select
                     name="city"
                     value={formDatas.city}
-                    onChange={handleChange}
-                >
-                    <option value="">Select city</option>
-                    {optionsCities.map((city) => (
-                        <option key={city.id} value={city.value}>
-                            {city.value.slice(0, 1).toUpperCase() +
-                                city.value.slice(1)}
-                        </option>
-                    ))}
-                </select>
+                    handleChange={handleChange}
+                    options={optionsCities}
+                    labelDefault="Select city"
+                    valueDefault=""
+                    className="w-full"
+                    label
+                />
             </div>
 
             <Button className="ml-0">
