@@ -5,6 +5,7 @@ import { getAllWilders } from '../utils/queries';
 import WilderList from '../components/wilders/WilderList';
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import { optionsCities } from '../datas';
+import { ToastContainer } from 'react-toastify';
 
 const Home = () => {
     const [wilders, setWilders] = useState([]);
@@ -85,6 +86,8 @@ const Home = () => {
             <Link to="/create">
                 <PlusCircleIcon className="h-20 w-20 text-red-500 mx-auto" />
             </Link>
+
+            <ToastContainer />
         </>
     );
 };

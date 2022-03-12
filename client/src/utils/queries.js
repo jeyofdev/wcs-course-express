@@ -22,9 +22,9 @@ export const addNewWilder = (datas) => {
 };
 
 export const updateWilder = (id, body) => {
-    axios
+    return axios
         .put(`/api/wilders/${id}`, body)
-        .then((response) => response)
+        .then((response) => response.data)
         .catch((err) => err);
 };
 
