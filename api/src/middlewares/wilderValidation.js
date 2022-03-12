@@ -1,6 +1,6 @@
 import { check, validationResult } from 'express-validator';
 
-export const create = [
+export const createOrUpdate = [
     check('name', 'The name must have at least 4 characters').isLength({
         min: 4,
     }),

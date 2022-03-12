@@ -29,8 +29,8 @@ export const updateWilder = (id, body) => {
 };
 
 export const deleteWilder = (id) => {
-    axios
+    return axios
         .delete(`/api/wilders/${id}`)
-        .then((response) => response)
+        .then((response) => response.data)
         .catch((err) => err);
 };

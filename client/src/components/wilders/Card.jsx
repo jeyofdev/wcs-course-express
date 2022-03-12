@@ -1,15 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { deleteWilder } from '../../utils/queries';
 import Skill from '../skills/Skill';
 import { XCircleIcon, PencilAltIcon } from '@heroicons/react/solid';
 
-const Card = ({ id, name, city, skills, refetch }) => {
+const Card = ({ id, name, city, skills, handleDelete }) => {
     const navigate = useNavigate();
-
-    const handleDelete = () => {
-        deleteWilder(id);
-        refetch();
-    };
 
     return (
         <div className="relative rounded-lg border-solid border-gray-200 border-2 sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto">
@@ -23,7 +17,10 @@ const Card = ({ id, name, city, skills, refetch }) => {
                 />
             </button>
 
-            <button className="absolute right-2 mt-2" onClick={handleDelete}>
+            <button
+                className="absolute right-2 mt-2"
+                onClick={() => handleDelete(id)}
+            >
                 <XCircleIcon className="h-7 w-7 text-red-500" />
             </button>
 

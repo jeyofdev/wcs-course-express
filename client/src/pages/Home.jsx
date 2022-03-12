@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Alert from '../components/ui/Alert';
-import { getAllWilders } from '../utils/queries';
+import { getAllWilders, deleteWilder } from '../utils/queries';
 import WilderList from '../components/wilders/WilderList';
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import { optionsCities } from '../datas';
@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { filtersWilders } from '../utils/filters';
 import Input from '../components/ui/form/Input';
 import Select from '../components/ui/form/Select';
+import { notifyDanger } from '../utils/notifications';
 
 const Home = () => {
     const [wilders, setWilders] = useState([]);
@@ -32,6 +33,14 @@ const Home = () => {
 
     const handleChangeSelect = (e) => {
         setFilter(e.target.value);
+    };
+
+    const handleDelete = async (id) => {
+        const datas = await deleteWilder(id);
+        if (datas.success) {
+            notifyDanger(datas.message);
+            fetchDatas();
+        }
     };
 
     useEffect(() => {
@@ -61,7 +70,7 @@ const Home = () => {
             </div>
 
             {!loading ? (
-                <WilderList wilders={wilders} refetch={fetchDatas} />
+                <WilderList wilders={wilders} handleDelete={handleDelete} />
             ) : (
                 <Alert>Loading wilders...</Alert>
             )}
