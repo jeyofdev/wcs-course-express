@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Alert from '../components/ui/Alert';
 import { getAllWilders } from '../utils/queries';
 import WilderList from '../components/wilders/WilderList';
@@ -23,6 +24,13 @@ const Home = () => {
 
     return (
         <>
+            <Link
+                to="/create"
+                className="ml-4 bg-red-500 p-4 rounded-md text-white font-bold"
+            >
+                Add new Wilder
+            </Link>
+
             {!loading ? (
                 <WilderList wilders={wilders} refetch={fetchDatas} />
             ) : (

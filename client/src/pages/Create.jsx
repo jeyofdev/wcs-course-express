@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/ui/Button';
-import { optionsCities } from '../datas';
 import { addNewWilder } from '../utils/queries';
+import WilderForm from '../components/wilders/WilderForm';
 
-const Create = ({ refetch }) => {
+const Create = () => {
     const navigate = useNavigate();
 
     const [formDatas, setFormDatas] = useState({
@@ -17,7 +16,7 @@ const Create = ({ refetch }) => {
         setFormDatas({ ...formDatas, [e.target.name]: e.target.value });
     };
 
-    const onSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         await addNewWilder(formDatas);
@@ -35,45 +34,11 @@ const Create = ({ refetch }) => {
                 Add a new wilder
             </h1>
 
-            <form
-                className="w-full max-w-300px mx-auto mb-20 border border-gray-200 py-8 px-6 rounded-lg w-full max-w-sm mb-10 "
-                onSubmit={onSubmit}
-            >
-                <div className="mb-6">
-                    <label className="mb-3 block" htmlFor="name">
-                        Name :{' '}
-                    </label>
-                    <input
-                        className="bg-white border border-gray-300 p-4 rounded-lg w-full"
-                        type="text"
-                        name="name"
-                        placeholder="enter name"
-                        value={formDatas.name}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-6">
-                    <label className="mb-3 block" htmlFor="city">
-                        City :{' '}
-                    </label>
-                    <select
-                        className="bg-white border border-gray-300 p-4 rounded-lg w-full"
-                        name="city"
-                        value={formDatas.city}
-                        onChange={handleChange}
-                    >
-                        <option value="">Select city</option>
-                        {optionsCities.map((city) => (
-                            <option key={city.id} value={city.value}>
-                                {city.value.slice(0, 1).toUpperCase() +
-                                    city.value.slice(1)}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <Button className="ml-0">Add new wilder</Button>
-            </form>
+            <WilderForm
+                formDatas={formDatas}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+            />
         </>
     );
 };
