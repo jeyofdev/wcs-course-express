@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { deleteWilder } from '../../utils/queries';
-import Badge from '../skills/Badge';
+import Skill from '../skills/Skill';
 import { XCircleIcon, PencilAltIcon } from '@heroicons/react/solid';
 
 const Card = ({ id, name, city, skills, refetch }) => {
@@ -48,7 +48,7 @@ const Card = ({ id, name, city, skills, refetch }) => {
                 </h4>
                 <div className="flex flex-wrap mb-4">
                     {skills.map((skill) => (
-                        <Badge key={skill.title} skill={skill} />
+                        <Skill key={skill.title} skill={skill} />
                     ))}
                 </div>
             </div>
