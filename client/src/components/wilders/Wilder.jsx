@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import Skill from '../skills/skill';
-import { XCircleIcon } from '@heroicons/react/solid';
+import { PencilAltIcon, XCircleIcon } from '@heroicons/react/solid';
 import { useQueryClient } from 'react-query';
 import { useDeleteWilder } from '../../hooks/wildersHooks';
 
 const Card = ({ id, name, city, skills }) => {
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutateAsync } = useDeleteWilder();
 
@@ -14,6 +16,16 @@ const Card = ({ id, name, city, skills }) => {
 
     return (
         <div className="relative rounded-lg border-solid border-gray-200 border-2 sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto">
+            <button
+                className="absolute right-10 mt-2"
+                onClick={() => navigate(`/update/${id}`)}
+            >
+                <PencilAltIcon
+                    className="h-6 w-6 text-green-500"
+                    style={{ marginTop: '2px' }}
+                />
+            </button>
+
             <button className="absolute right-2 mt-2" onClick={handleDelete}>
                 <XCircleIcon className="h-7 w-7 text-red-500" />
             </button>
