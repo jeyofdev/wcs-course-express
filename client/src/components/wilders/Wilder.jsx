@@ -39,12 +39,6 @@ const Card = ({ id, name, city, skills }) => {
             <h2 className="mt-6 text-red-500 font-bold text-lg">{name}</h2>
             <h4 className="mt-2 mb-4">{city}</h4>
 
-            <p className="text-gray-500">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero
-                doloribus vel ducimus veniam impedit dolorem accusamus provident
-                odio, ab veritatis iure alias.
-            </p>
-
             <div className="mt-4">
                 <h4 className="text-red-500 font-bold text-lg mb-4">
                     Wild Skills

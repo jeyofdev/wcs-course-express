@@ -1,14 +1,15 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import WilderForm from '../components/wilders/WilderForm';
 import { useGetWilderById, useUpdateWilder } from '../hooks/wildersHooks';
 import Alert from '../components/ui/Alert';
 
 const Update = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const { isLoading, isError, error, data: wilder } = useGetWilderById(id);
 
-    const { mutateAsync, isLoading: isMutating } = useUpdateWilder();
+    const { mutateAsync, isLoading: isMutating } = useUpdateWilder(navigate);
 
     if (isLoading) {
         return (

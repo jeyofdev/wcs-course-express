@@ -5,6 +5,7 @@ import { PlusCircleIcon } from '@heroicons/react/solid';
 import Input from '../components/ui/form/Input';
 import Select from '../components/ui/form/Select';
 import { optionsCities } from '../datas/';
+import { ToastContainer } from 'react-toastify';
 
 const Home = () => {
     const [search, setSearch] = useState('');
@@ -39,10 +40,14 @@ const Home = () => {
                     className="sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto"
                 />
             </div>
+
             <WildersList search={search} filter={filter} />
+
             <Link to="/create">
                 <PlusCircleIcon className="h-20 w-20 text-red-500 mx-auto" />
             </Link>
+
+            <ToastContainer />
         </>
     );
 };

@@ -17,7 +17,6 @@ const WildersList = ({ search, filter }) => {
 
     useEffect(() => {
         if (wilders) {
-            console.log('ok');
             setWildersFiltered(filtersWilders(wilders, search, filter));
         }
     }, [search, filter, wilders]);

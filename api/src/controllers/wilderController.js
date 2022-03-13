@@ -53,7 +53,11 @@ export const save = async (req, res) => {
         const newWilder = WilderModel(req.body);
         const result = await newWilder.save();
 
-        res.status(200).json({ message: 'Wilder successfully saved', result });
+        res.status(200).json({
+            success: true,
+            message: 'Wilder successfully saved',
+            result,
+        });
     } catch (err) {
         res.status(500).json({
             message: 'Error saving the wilder',
@@ -78,6 +82,7 @@ export const update = async (req, res) => {
         }
 
         res.status(200).json({
+            success: true,
             message: 'Wilder updated successfully',
             result,
         });
@@ -105,6 +110,7 @@ export const remove = async (req, res) => {
         }
 
         res.status(200).json({
+            success: true,
             message: 'Wilder deleted successfully',
             result,
         });

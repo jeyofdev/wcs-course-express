@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import WilderForm from '../components/wilders/WilderForm';
 import { useAddWilder } from '../hooks/wildersHooks';
 
 const Create = () => {
-    const { mutateAsync, isLoading: isMutating } = useAddWilder();
+    const navigate = useNavigate();
+    const { mutateAsync, isLoading: isMutating } = useAddWilder(navigate);
 
     return (
         <>
