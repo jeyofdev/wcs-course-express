@@ -17,3 +17,12 @@ export const addNewWilder = async ({ ...datas }) => {
             throw new Error(err);
         });
 };
+
+export const deleteWilder = async (id) => {
+    return await axios
+        .delete(`/api/wilders/${id}`)
+        .then((response) => response.data)
+        .catch((err) => {
+            throw new Error(err);
+        });
+};

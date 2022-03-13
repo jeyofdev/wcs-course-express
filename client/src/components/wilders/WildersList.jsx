@@ -3,7 +3,13 @@ import Wilder from './Wilder';
 import { useGetWilders } from '../../hooks/wildersHooks';
 
 const WildersList = () => {
-    const { isLoading, isError, error, data: wilders } = useGetWilders();
+    const {
+        isLoading,
+        isError,
+        error,
+        data: wilders,
+        refetch,
+    } = useGetWilders();
 
     if (isLoading) {
         return (
@@ -36,6 +42,7 @@ const WildersList = () => {
                             name={wilder.name}
                             city={wilder.city}
                             skills={wilder.skills}
+                            refetch={refetch}
                         />
                     ))}
                 </div>
