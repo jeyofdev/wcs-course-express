@@ -1,9 +1,13 @@
-import { useQuery } from 'react-query';
-import { getAllWilders } from '../utils/query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { addNewWilder, getAllWilders } from '../utils/query';
 
 export const useGetWilders = () => {
     return useQuery('wilders', getAllWilders, {
         refetchOnMount: true,
         refetchOnWindowFocus: true,
     });
+};
+
+export const useAddWilder = () => {
+    return useMutation(addNewWilder);
 };
