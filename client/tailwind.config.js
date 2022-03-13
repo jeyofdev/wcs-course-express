@@ -7,6 +7,9 @@ module.exports = {
                     500: '#F08080',
                 },
             },
+            maxWidth: {
+                500: '500px',
+            },
         },
     },
     plugins: [],

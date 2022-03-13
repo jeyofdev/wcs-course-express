@@ -6,7 +6,7 @@ import {
     getWilderById,
     updateWilder,
 } from '../utils/query';
-import { notifySuccess } from '../utils/notifications';
+import { notifySuccess, notifyDanger } from '../utils/notifications';
 
 export const useGetWilders = () => {
     return useQuery('wilders', getAllWilders);
@@ -39,6 +39,14 @@ export const useUpdateWilder = (navigate) => {
     });
 };
 
-export const useDeleteWilder = () => {
-    return useMutation(deleteWilder);
+export const useDeleteWilder = (navigate) => {
+    return useMutation(deleteWilder, {
+        onSuccess: (datas) => {
+            console.log(datas);
+            if (datas.success) {
+                notifyDanger(datas.message);
+                navigate('/');
+            }
+        },
+    });
 };

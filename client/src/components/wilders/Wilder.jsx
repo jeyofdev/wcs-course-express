@@ -1,13 +1,17 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skill from '../skills/skill';
 import { PencilAltIcon, XCircleIcon } from '@heroicons/react/solid';
 import { useQueryClient } from 'react-query';
 import { useDeleteWilder } from '../../hooks/wildersHooks';
+import Modal from '../ui/modal';
+import Dialog from '../ui/modal/dialog';
 
 const Card = ({ id, name, city, skills }) => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
-    const { mutateAsync } = useDeleteWilder();
+    const { mutateAsync } = useDeleteWilder(navigate);
+    const [modalIsShow, setModalIsShow] = useState(false);
 
     const handleDelete = async () => {
         await mutateAsync(id);
@@ -26,7 +30,12 @@ const Card = ({ id, name, city, skills }) => {
                 />
             </button>
 
-            <button className="absolute right-2 mt-2" onClick={handleDelete}>
+            <button
+                className="absolute right-2 mt-2"
+                onClick={() => {
+                    setModalIsShow(!modalIsShow);
+                }}
+            >
                 <XCircleIcon className="h-7 w-7 text-red-500" />
             </button>
 
@@ -49,6 +58,14 @@ const Card = ({ id, name, city, skills }) => {
                     ))}
                 </div>
             </div>
+
+            <Modal isShow={modalIsShow} handleClose={setModalIsShow}>
+                <Dialog
+                    text="Are you sure you want to delete this wilder 😢 ??"
+                    handleCancel={() => setModalIsShow(false)}
+                    handleConfirm={() => handleDelete(id)}
+                />
+            </Modal>
         </div>
     );
 };
