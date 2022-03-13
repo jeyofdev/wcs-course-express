@@ -1,5 +1,7 @@
+import WildersList from '../components/wilders/WildersList';
+
 const Home = () => {
-    return <h1>Home</h1>;
+    return <WildersList />;
 };
 
 export default Home;
