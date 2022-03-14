@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import WildersList from '../components/wilders/WildersList';
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import Input from '../components/ui/form/Input';
-import Select from '../components/ui/form/Select';
+import Select from '../components/ui/form/select';
 import { optionsCities } from '../datas/';
 import { ToastContainer } from 'react-toastify';
 

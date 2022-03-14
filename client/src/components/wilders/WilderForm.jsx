@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '../ui/Button';
 import Input from '../ui/form/Input';
-import Select from '../ui/form/Select';
+import Select from '../ui/form/select';
 import Alert from '../ui/Alert';
 import { optionsCities } from '../../datas';
 
