@@ -10,12 +10,12 @@ const Modal = ({ isShow, handleClose, children }) => {
 
         document.addEventListener('keydown', escape, false);
 
-        if (isShow) {
-            console.log('ok');
-            document.body.style.overflowY = 'hidden';
-        } else {
-            document.body.style.overflowY = 'scroll';
-        }
+        // if (isShow) {
+        //     console.log('ok');
+        //     document.body.style.overflowY = 'hidden';
+        // } else {
+        //     document.body.style.overflowY = 'scroll';
+        // }
 
         return () => {
             document.removeEventListener('keydown', escape, false);
