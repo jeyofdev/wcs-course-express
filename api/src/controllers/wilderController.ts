@@ -1,20 +1,21 @@
 import WilderModel from '../models/wilderModel';
-import { wilderValidation } from '../middlewares';
 import { listErrors } from '../utils/tools';
+import { Request, Response } from 'express';
+import { IWilder } from '../interfaces/models';
 
 /**
  * Get All wilders
  */
-export const find = async (_, res) => {
+export const find = async (_: Request, res: Response) => {
     try {
         await WilderModel.init();
-        const results = await WilderModel.find();
+        const results: IWilder[] = await WilderModel.find();
 
         res.status(200).json(results);
     } catch (err) {
-        response.status(500).json({
+        res.status(500).json({
             message: 'Error retrieving data from database',
-            error: err.message,
+            error: (err as Error).message,
         });
     }
 };
@@ -22,12 +23,12 @@ export const find = async (_, res) => {
 /**
  * Get wilder by id
  */
-export const findById = async (req, res) => {
+export const findById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
 
         await WilderModel.init();
-        const result = await WilderModel.findById(id);
+        const result: IWilder | null = await WilderModel.findById(id);
 
         if (!result) {
             return res.status(302).json({
@@ -39,7 +40,7 @@ export const findById = async (req, res) => {
     } catch (err) {
         res.status(500).json({
             message: 'Error retrieving data from database',
-            error: err.message,
+            error: (err as Error).message,
         });
     }
 };
@@ -47,10 +48,10 @@ export const findById = async (req, res) => {
 /**
  * add wilder
  */
-export const save = async (req, res) => {
+export const save = async (req: Request, res: Response) => {
     try {
         await WilderModel.init();
-        const newWilder = WilderModel(req.body);
+        const newWilder = new WilderModel(req.body);
         const result = await newWilder.save();
 
         res.status(200).json({
@@ -69,7 +70,7 @@ export const save = async (req, res) => {
 /**
  * Update wilder
  */
-export const update = async (req, res) => {
+export const update = async (req: Request, res: Response) => {
     try {
         await WilderModel.init();
         const { id } = req.params;
@@ -89,7 +90,7 @@ export const update = async (req, res) => {
     } catch (err) {
         res.status(500).json({
             message: 'Error updating the movie',
-            error: err.message,
+            error: (err as Error).message,
         });
     }
 };
@@ -97,7 +98,7 @@ export const update = async (req, res) => {
 /**
  * Delete wilder
  */
-export const remove = async (req, res) => {
+export const remove = async (req: Request, res: Response) => {
     try {
         await WilderModel.init();
         const { id } = req.params;

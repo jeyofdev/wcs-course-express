@@ -1,4 +1,5 @@
-import { check, validationResult } from 'express-validator';
+import express, { NextFunction, Request, Response } from 'express';
+import { check, validationResult, ValidationError } from 'express-validator';
 
 export const create = [
     check('name', 'The name must have at least 4 characters').isLength({
@@ -9,12 +10,12 @@ export const create = [
         min: 2,
     }),
     check('city', 'the city is required').not().isEmpty(),
-    (req, res, next) => {
-        const errorsValidation = validationResult(req);
+    (req: Request, res: Response, next: NextFunction) => {
+        const errorsValidation: any = validationResult(req);
         if (!errorsValidation.isEmpty()) {
             let errors = {};
             errorsValidation.errors.map(
-                (err) => (errors = { ...errors, [err.param]: err.msg })
+                (err: any) => (errors = { ...errors, [err.param]: err.msg })
             );
             res.json({
                 success: false,

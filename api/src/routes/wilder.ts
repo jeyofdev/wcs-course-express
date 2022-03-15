@@ -1,7 +1,5 @@
 import express from 'express';
-import WilderModel from '../models/wilderModel';
 import { wilderValidation } from '../middlewares';
-import { listErrors } from '../utils/tools';
 import {
     find,
     findById,

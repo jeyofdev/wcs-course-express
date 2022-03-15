@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
+import { IWilder } from '../interfaces/models';
 const { Schema, model } = mongoose;
 
-const WilderSchema = new Schema(
+const WilderSchema = new Schema<IWilder>(
     {
         name: {
             type: String,
@@ -22,4 +23,4 @@ const WilderSchema = new Schema(
     { versionKey: false }
 );
 
-export default model('Wilder', WilderSchema);
+export default model<IWilder>('Wilder', WilderSchema);
