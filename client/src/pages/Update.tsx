@@ -35,8 +35,9 @@ const Update = () => {
         <>
             <h1 className="mb-8 mt-10 text-red-500 font-bold text-2xl text-center">
                 Update the wilder{' '}
-                {wilder.name.slice(0, 1).toUpperCase() +
-                    wilder.name.slice(1).toLowerCase()}
+                {wilder &&
+                    wilder.name.slice(0, 1).toUpperCase() +
+                        wilder.name.slice(1).toLowerCase()}
                 .
             </h1>
 

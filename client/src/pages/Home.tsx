@@ -1,21 +1,21 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import WildersList from '../components/wilders/WildersList';
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import Input from '../components/ui/form/Input';
 import Select from '../components/ui/form/select';
-import { optionsCities } from '../datas/';
+import { optionsCities } from '../datas';
 import { ToastContainer } from 'react-toastify';
 
 const Home = () => {
-    const [search, setSearch] = useState('');
-    const [filter, setFilter] = useState('all');
+    const [search, setSearch] = useState<string>('');
+    const [filter, setFilter] = useState<string>('all');
 
-    const handleSearch = (e) => {
+    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
 
-    const handleChangeSelect = (e) => {
+    const handleChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         setFilter(e.target.value);
     };
 

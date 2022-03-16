@@ -1,6 +1,7 @@
+import { IDialogProps } from '../../../interfaces/props/ui';
 import Button from '../Button';
 
-const Dialog = ({ text, handleCancel, handleConfirm }) => {
+const Dialog = ({ text, handleCancel, handleConfirm }: IDialogProps) => {
     return (
         <div role="dialog">
             <p className="text-gray-900 text-lg mb-5">{text}</p>

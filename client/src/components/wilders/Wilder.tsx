@@ -6,15 +6,16 @@ import { useQueryClient } from 'react-query';
 import { useDeleteWilder } from '../../hooks/wildersHooks';
 import Modal from '../ui/modal';
 import Dialog from '../ui/modal/dialog';
+import { WilderPropsType } from '../../types';
 
-const Card = ({ id, name, city, skills }) => {
+const Card = ({ _id, name, city, skills }: WilderPropsType) => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutateAsync } = useDeleteWilder(navigate);
-    const [modalIsShow, setModalIsShow] = useState(false);
+    const [modalIsShow, setModalIsShow] = useState<boolean>(false);
 
     const handleDelete = async () => {
-        await mutateAsync(id);
+        await mutateAsync(_id);
         queryClient.invalidateQueries('wilders');
     };
 
@@ -22,7 +23,7 @@ const Card = ({ id, name, city, skills }) => {
         <div className="relative rounded-lg border-solid border-gray-200 border-2 sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto">
             <button
                 className="absolute right-10 mt-2"
-                onClick={() => navigate(`/update/${id}`)}
+                onClick={() => navigate(`/update/${_id}`)}
             >
                 <PencilAltIcon
                     className="h-6 w-6 text-green-500"
@@ -54,16 +55,16 @@ const Card = ({ id, name, city, skills }) => {
                 </h4>
                 <div className="flex flex-wrap mb-4">
                     {skills.map((skill) => (
-                        <Skill key={skill.title} skill={skill} />
+                        <Skill key={skill._id} skill={skill} />
                     ))}
                 </div>
             </div>
 
-            <Modal isShow={modalIsShow} handleClose={setModalIsShow}>
+            <Modal isShow={modalIsShow} handleClose={() => setModalIsShow}>
                 <Dialog
                     text="Are you sure you want to delete this wilder 😢 ??"
                     handleCancel={() => setModalIsShow(false)}
-                    handleConfirm={() => handleDelete(id)}
+                    handleConfirm={() => handleDelete()}
                 />
             </Modal>
         </div>

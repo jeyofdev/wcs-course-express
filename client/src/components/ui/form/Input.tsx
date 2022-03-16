@@ -1,3 +1,5 @@
+import { InputPropsType } from '../../../types';
+
 const Input = ({
     value,
     handleChange,
@@ -5,7 +7,7 @@ const Input = ({
     placeholder,
     className,
     label = false,
-}) => {
+}: InputPropsType) => {
     return (
         <>
             {' '}

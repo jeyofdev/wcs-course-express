@@ -1,6 +1,6 @@
-import { toast } from 'react-toastify';
+import { toast, ToastOptions } from 'react-toastify';
 
-const options = {
+const options: ToastOptions = {
     theme: 'colored',
     position: 'bottom-right',
     autoClose: 3000,
@@ -11,10 +11,10 @@ const options = {
     progress: undefined,
 };
 
-export const notifySuccess = (message) => {
+export const notifySuccess = (message: string) => {
     toast.success(message, options);
 };
 
-export const notifyDanger = (message) => {
+export const notifyDanger = (message: string) => {
     toast.error(message, options);
 };

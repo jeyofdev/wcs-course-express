@@ -1,3 +1,5 @@
+import { SelectPropsType } from '../../../types';
+
 const Select = ({
     name,
     value,
@@ -7,7 +9,7 @@ const Select = ({
     valueDefault,
     className,
     label = false,
-}) => {
+}: SelectPropsType) => {
     return (
         <>
             {label && (

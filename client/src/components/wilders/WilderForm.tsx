@@ -1,24 +1,31 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Button from '../ui/Button';
 import Input from '../ui/form/Input';
 import Select from '../ui/form/select';
 import Alert from '../ui/Alert';
 import { optionsCities } from '../../datas';
+import { IWilderFormProps } from '../../interfaces/props/elements';
 
-const WilderForm = ({ isCreated = true, defaultValues, mutation }) => {
+const WilderForm = ({
+    isCreated = true,
+    defaultValues,
+    mutation,
+}: IWilderFormProps) => {
     const [formDatas, setFormDatas] = useState({
         name: defaultValues ? defaultValues.name : '',
         city: defaultValues ? defaultValues.city : '',
         skills: defaultValues ? defaultValues.skills : [],
     });
 
-    const [formErrors, setFormErrors] = useState(null);
+    const [formErrors, setFormErrors] = useState<string | null>();
 
-    const handleChange = (e) => {
+    const handleChange = (
+        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
         setFormDatas({ ...formDatas, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit: any = async (e: SubmitEvent) => {
         e.preventDefault();
         const datas = await mutation({
             id: defaultValues ? defaultValues._id : null,

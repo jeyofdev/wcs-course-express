@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { IModalProps } from '../../../interfaces/props/ui';
 
-const Modal = ({ isShow, handleClose, children }) => {
+const Modal = ({ isShow, handleClose, children }: IModalProps) => {
     useEffect(() => {
         const escape = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {

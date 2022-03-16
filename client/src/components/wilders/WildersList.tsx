@@ -3,17 +3,13 @@ import Wilder from './Wilder';
 import { useGetWilders } from '../../hooks/wildersHooks';
 import { filtersWilders } from '../../utils/filters';
 import { useState, useEffect } from 'react';
+import { IWilder } from '../../interfaces/elements';
+import { IWilderList } from '../../interfaces/props/elements';
 
-const WildersList = ({ search, filter }) => {
-    const {
-        isLoading,
-        isError,
-        error,
-        data: wilders,
-        refetch,
-    } = useGetWilders();
+const WildersList = ({ search, filter }: IWilderList) => {
+    const { isLoading, isError, error, data: wilders } = useGetWilders();
 
-    const [wildersFiltrered, setWildersFiltered] = useState();
+    const [wildersFiltrered, setWildersFiltered] = useState<IWilder[]>([]);
 
     useEffect(() => {
         if (wilders) {
@@ -48,11 +44,10 @@ const WildersList = ({ search, filter }) => {
                     {wildersFiltrered.map((wilder) => (
                         <Wilder
                             key={wilder._id}
-                            id={wilder._id}
+                            _id={wilder._id}
                             name={wilder.name}
                             city={wilder.city}
                             skills={wilder.skills}
-                            refetch={refetch}
                         />
                     ))}
                 </div>

@@ -1,4 +1,6 @@
-const Skill = ({ skill }) => {
+import { ISkillProps } from '../../interfaces/props/elements';
+
+const Skill = ({ skill }: ISkillProps) => {
     return (
         <div
             className={`border ${

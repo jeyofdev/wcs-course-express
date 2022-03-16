@@ -1,7 +1,8 @@
+import { IChildren } from '../interfaces/elements';
 import Footer from './Footer';
 import Header from './Header';
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: IChildren) => {
     return (
         <div className="min-h-screen">
             <Header>Wilders Book</Header>

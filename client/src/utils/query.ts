@@ -1,6 +1,12 @@
 import axios from 'axios';
+import {
+    IAddWilderParams,
+    IGetOneWilderParams,
+    IUpdateWilderParams,
+} from '../interfaces/utils/query';
+import { GetWildersType, GetWilderType } from '../types';
 
-export const getAllWilders = () => {
+export const getAllWilders: GetWildersType = () => {
     return axios
         .get('/api/wilders')
         .then((response) => response.data)
@@ -9,7 +15,9 @@ export const getAllWilders = () => {
         });
 };
 
-export const getWilderById = async ({ queryKey }) => {
+export const getWilderById: GetWilderType = async ({
+    queryKey,
+}: IGetOneWilderParams) => {
     const { id } = queryKey[1];
 
     return await axios
@@ -20,7 +28,7 @@ export const getWilderById = async ({ queryKey }) => {
         });
 };
 
-export const addNewWilder = async ({ ...datas }) => {
+export const addNewWilder = async ({ ...datas }: IAddWilderParams) => {
     return await axios
         .post('/api/wilders', datas)
         .then((response) => response.data)
@@ -29,7 +37,7 @@ export const addNewWilder = async ({ ...datas }) => {
         });
 };
 
-export const updateWilder = ({ id, ...datas }) => {
+export const updateWilder = ({ id, ...datas }: IUpdateWilderParams) => {
     return axios
         .put(`/api/wilders/${id}`, datas)
         .then((response) => response.data)
@@ -38,7 +46,7 @@ export const updateWilder = ({ id, ...datas }) => {
         });
 };
 
-export const deleteWilder = async (id) => {
+export const deleteWilder = async (id: string) => {
     return await axios
         .delete(`/api/wilders/${id}`)
         .then((response) => response.data)
