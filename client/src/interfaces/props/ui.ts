@@ -27,6 +27,6 @@ export interface IDialogProps {
 
 export interface IModalProps {
     isShow: boolean;
-    handleClose: () => Dispatch<SetStateAction<boolean>>;
+    handleClose: () => void;
     children: ReactNode;
 }

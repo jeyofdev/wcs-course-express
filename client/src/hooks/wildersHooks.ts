@@ -11,7 +11,10 @@ import { NavigateFunction } from 'react-router-dom';
 import { IWilder } from '../interfaces/elements';
 
 export const useGetWilders = () => {
-    return useQuery<IWilder[], Error>('wilders', getAllWilders);
+    return useQuery<IWilder[], Error>('wilders', getAllWilders, {
+        refetchOnWindowFocus: true,
+        refetchOnMount: true,
+    });
 };
 
 export const useGetWilderById = (id: string | undefined) => {

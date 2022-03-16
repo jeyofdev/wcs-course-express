@@ -7,8 +7,8 @@ import { IdatabaseConnectOptions } from './interfaces/config';
 dotenv.config();
 
 // Env
-const PORT: string | number = process.env.PORT || 3000;
-const MONGO_URI: string | undefined = process.env.MONGO_URI;
+const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI;
 
 // Express
 const server = express();

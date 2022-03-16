@@ -60,7 +60,7 @@ const Card = ({ _id, name, city, skills }: WilderPropsType) => {
                 </div>
             </div>
 
-            <Modal isShow={modalIsShow} handleClose={() => setModalIsShow}>
+            <Modal isShow={modalIsShow} handleClose={() => setModalIsShow(!modalIsShow)}>
                 <Dialog
                     text="Are you sure you want to delete this wilder 😢 ??"
                     handleCancel={() => setModalIsShow(false)}
