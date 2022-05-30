@@ -1,13 +1,26 @@
-import mongoose from 'mongoose';
-import { ConnectDatabaseType } from '../types/config';
+import * as mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
 
-const connectDb: ConnectDatabaseType = async (url, dbConnectOptions) => {
+dotenv.config();
+const { MONGO_URI } = process.env;
+
+/**
+ * Connect to mongoDB
+ */
+const ConnectDb = async (
+  success: string,
+  options?: mongoose.ConnectOptions | undefined
+) => {
+  if (!MONGO_URI) {
+    throw new Error('A MONGO_URL must be provided in .env');
+  }
+
   try {
-    await mongoose.connect(url, dbConnectOptions);
-    console.log('Connected to database MongoDB');
+    await mongoose.connect(MONGO_URI, options);
+    console.log(success);
   } catch (err) {
-    console.log((err as Error).message);
+    console.log(err);
   }
 };
 
-export default connectDb;
+export default ConnectDb;
