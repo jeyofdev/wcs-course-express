@@ -1,20 +1,25 @@
-import WilderCreateInput from 'src/inputs/WilderCreate.input';
-import WilderUpdateInput from 'src/inputs/WilderUpdate.input';
+import WilderCreateInput from 'src/inputs/wilderCreate.input';
+import WilderUpdateInput from 'src/inputs/wilderUpdate.input';
+import { Service } from 'typedi';
 import WilderModel from '../models/Wilder.model';
 
-export const getAll = () => WilderModel.find();
+@Service()
+class WilderService {
+  find = () => WilderModel.find();
 
-export const getById = async (id: string) => {
-  const wilder = await WilderModel.findById(id);
-  return wilder;
-};
+  findById = async (id: string) => {
+    const wilder = await WilderModel.findById(id);
+    return wilder;
+  };
 
-export const save = (data: WilderCreateInput) => WilderModel.create(data);
+  save = (data: WilderCreateInput) => WilderModel.create(data);
 
-export const update = async (data: WilderUpdateInput) => {
-  await WilderModel.updateOne({ _id: data.id }, data);
-  return WilderModel.findById(data.id);
-};
+  update = async (data: WilderUpdateInput) => {
+    await WilderModel.updateOne({ _id: data.id }, data);
+    return WilderModel.findById(data.id);
+  };
 
-export const remove = async (id: string) =>
-  WilderModel.findByIdAndDelete({ _id: id });
+  remove = (id: string) => WilderModel.findByIdAndDelete({ _id: id });
+}
+
+export default WilderService;

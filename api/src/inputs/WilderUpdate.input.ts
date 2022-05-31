@@ -1,7 +1,7 @@
 import { Field, ArgsType } from 'type-graphql';
 import { MaxLength, MinLength } from 'class-validator';
 import ObjectIdScalar from '../scalars/objectId.scalar';
-import Skill from '../models/Skill.model';
+import Skill from '../models/skill.model';
 
 @ArgsType()
 class WilderUpdateInput {

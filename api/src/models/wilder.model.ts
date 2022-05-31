@@ -2,7 +2,7 @@ import { prop as Property, getModelForClass } from '@typegoose/typegoose';
 import { ObjectId } from 'mongodb';
 import { Field, ObjectType } from 'type-graphql';
 import ObjectIdScalar from '../scalars/objectId.scalar';
-import Skill from './Skill.model';
+import Skill from './skill.model';
 
 @ObjectType({ description: 'Model for the wilders' })
 export class Wilder {

@@ -1,6 +1,6 @@
 import { MaxLength, MinLength } from 'class-validator';
 import { ArgsType, Field } from 'type-graphql';
-import Skill from '../models/Skill.model';
+import Skill from '../models/skill.model';
 
 @ArgsType()
 class WilderCreateInput {

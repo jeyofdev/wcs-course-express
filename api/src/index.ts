@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import * as Express from 'express';
 import { buildSchema } from 'type-graphql';
 import * as dotenv from 'dotenv';
-import WilderResolver from './resolvers/wilder.resolver';
+import { Container } from 'typedi';
 import ConnectDb from './config/database.config';
 
 dotenv.config();
@@ -16,7 +16,8 @@ ConnectDb('Connected to database MongoDB', connectOptions);
 // Server
 const serverStart = async () => {
   const schema = await buildSchema({
-    resolvers: [WilderResolver],
+    resolvers: [`${__dirname}/**/*.resolver.{ts,js}`],
+    container: Container,
   });
 
   const apolloServer = await new ApolloServer({ schema });
