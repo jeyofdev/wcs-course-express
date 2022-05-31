@@ -8,7 +8,7 @@ import wilderModel, { Wilder } from '../models/Wilder.model';
 class WilderResolver {
   // Get all wilders
   @Query(() => [Wilder], {
-    nullable: true,
+    nullable: false,
     description: 'Get all wilders.',
   })
   async wilders() {
