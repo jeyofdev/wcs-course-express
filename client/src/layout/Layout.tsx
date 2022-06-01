@@ -1,15 +1,16 @@
-import { IChildren } from '../interfaces/elements';
-import Footer from './Footer';
-import Header from './Header';
+// import { IChildren } from '../interfaces/elements';
+// import Footer from './Footer';
+// import Header from './Header';
 
-const Layout = ({ children }: IChildren) => {
-    return (
-        <div className="min-h-screen">
-            <Header>Wilders Book</Header>
-            <div className="container mx-auto my-16 px-4">{children}</div>
-            <Footer />
-        </div>
-    );
-};
+// const Layout = ({ children }: IChildren) => {
+//     return (
+//         <div className="min-h-screen">
+//             <Header>Wilders Book</Header>
+//             <div className="container mx-auto my-16 px-4">{children}</div>
+//             <Footer />
+//         </div>
+//     );
+// };
 
-export default Layout;
+// export default Layout;
+export {};
