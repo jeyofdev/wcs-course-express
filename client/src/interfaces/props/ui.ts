@@ -1,9 +1,9 @@
-// import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
-// export interface IAlertProps {
-//     children: ReactNode;
-//     className?: string;
-// }
+export interface IAlertProps {
+    children: ReactNode;
+    className?: string;
+}
 
 // export interface IButtonProps {
 //     children: ReactNode;

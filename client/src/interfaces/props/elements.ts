@@ -1,8 +1,4 @@
-// import { ISkill, IWilder } from '../elements';
-
-// export interface ISkillProps {
-//     skill: ISkill;
-// }
+// import { IWilder } from '../elements';
 
 // export interface IWilderFormProps {
 //     isCreated?: boolean;
