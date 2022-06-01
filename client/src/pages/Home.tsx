@@ -5,7 +5,7 @@
 // import Input from '../components/ui/form/Input';
 // import Select from '../components/ui/form/select';
 // import { optionsCities } from '../datas';
-// import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useQuery } from '@apollo/client';
 import WildersList from '../components/wilders/WildersList';
 import { GET_WILDERS } from '../queries/queries';
@@ -54,7 +54,8 @@ const Home = () => {
                 <PlusCircleIcon className="h-20 w-20 text-red-500 mx-auto" />
             </Link>
 
-            <ToastContainer /> */}
+        */}
+            <ToastContainer position="bottom-right" />
         </>
     );
 };

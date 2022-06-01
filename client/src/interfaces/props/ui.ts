@@ -5,19 +5,19 @@ export interface IAlertProps {
     className?: string;
 }
 
-// export interface IButtonProps {
-//     children: ReactNode;
-//     className?: string;
-//     onClick?: () => void;
-// }
+export interface IButtonProps {
+    children: ReactNode;
+    className?: string;
+    onClick?: () => void;
+}
 
-// export interface IInputProps {
-//     value: string;
-//     name: string;
-//     label?: boolean;
-//     className?: string;
-//     placeholder: string;
-// }
+export interface IInputProps {
+    value: string;
+    name: string;
+    label?: boolean;
+    className?: string;
+    placeholder: string;
+}
 
 // export interface IDialogProps {
 //     text: string;
@@ -30,4 +30,3 @@ export interface IAlertProps {
 //     handleClose: () => void;
 //     children: ReactNode;
 // }
-export {};
