@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 
 export interface IAlertProps {
     children: ReactNode;
@@ -19,14 +19,14 @@ export interface IInputProps {
     placeholder: string;
 }
 
-// export interface IDialogProps {
-//     text: string;
-//     handleCancel: () => void;
-//     handleConfirm: () => void;
-// }
+export interface IDialogProps {
+    text: string;
+    handleCancel: () => void;
+    handleConfirm: () => void;
+}
 
-// export interface IModalProps {
-//     isShow: boolean;
-//     handleClose: () => void;
-//     children: ReactNode;
-// }
+export interface IModalProps {
+    isShow: boolean;
+    handleClose: () => void;
+    children: ReactNode;
+}

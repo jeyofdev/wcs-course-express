@@ -17,3 +17,17 @@ export const CREATE_WILDER = gql`
         }
     }
 `;
+
+export const DELETE_WILDER = gql`
+    mutation removeWilder($id: String!) {
+        removeWilder(wilderId: $id) {
+            _id
+            name
+            city
+            skills {
+                votes
+                title
+            }
+        }
+    }
+`;

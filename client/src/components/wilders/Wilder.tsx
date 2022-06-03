@@ -1,23 +1,39 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import Skill from '../skills/skill';
-// import { PencilAltIcon, XCircleIcon } from '@heroicons/react/solid';
-// import { useQueryClient } from 'react-query';
-// import { useDeleteWilder } from '../../hooks/wildersHooks';
-// import Modal from '../ui/modal';
-// import Dialog from '../ui/modal/dialog';
+import { PencilAltIcon, XCircleIcon } from '@heroicons/react/solid';
+import Modal from '../ui/modal';
+import Dialog from '../ui/modal/dialog';
+import { DELETE_WILDER } from '../../queries/mutation';
+import { notifyError, notifySuccess } from '../../utils/notifications';
+import { useMutation } from '@apollo/client';
+import { GET_WILDERS } from '../../queries/queries';
+import { SkillType } from '../../types';
 // import { WilderPropsType } from '../../types';
+import { v4 as uuid } from 'uuid';
 
 const Card = ({ _id, name, city, skills }: any) => {
     // const navigate = useNavigate();
-    // const queryClient = useQueryClient();
-    // const { mutateAsync } = useDeleteWilder(navigate);
-    // const [modalIsShow, setModalIsShow] = useState<boolean>(false);
+    const [modalIsShow, setModalIsShow] = useState<boolean>(false);
 
-    // const handleDelete = async () => {
-    //     await mutateAsync(_id);
-    //     queryClient.invalidateQueries('wilders');
-    // };
+    const [deleteWilder] = useMutation(DELETE_WILDER, {
+        onCompleted: () => {
+            notifySuccess(`Wilder ${name} has been deleted`);
+            setModalIsShow(false);
+        },
+        onError: (error: any) => {
+            notifyError(error.message);
+            setModalIsShow(false);
+        },
+        refetchQueries: [GET_WILDERS],
+    });
+
+    const handleDelete = () => {
+        try {
+            deleteWilder({ variables: { id: _id } });
+            setModalIsShow(false);
+        } catch (error) {}
+    };
 
     return (
         <div className="relative rounded-lg border-solid border-gray-200 border-2 sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto">
@@ -30,6 +46,7 @@ const Card = ({ _id, name, city, skills }: any) => {
                     style={{ marginTop: '2px' }}
                 />
             </button>
+             */}
 
             <button
                 className="absolute right-2 mt-2"
@@ -38,7 +55,7 @@ const Card = ({ _id, name, city, skills }: any) => {
                 }}
             >
                 <XCircleIcon className="h-7 w-7 text-red-500" />
-            </button> */}
+            </button>
 
             <img
                 className="max-w-200px mx-auto w-full"
@@ -54,9 +71,9 @@ const Card = ({ _id, name, city, skills }: any) => {
                     Wild Skills
                 </h4>
                 <div className="flex flex-wrap mb-4">
-                    {skills.map((skill: any) => (
+                    {skills.map((skill: SkillType) => (
                         <Skill
-                            key={skill._id}
+                            key={uuid()}
                             title={skill?.title}
                             votes={skill?.votes}
                         />
@@ -64,16 +81,16 @@ const Card = ({ _id, name, city, skills }: any) => {
                 </div>
             </div>
 
-            {/* <Modal
+            <Modal
                 isShow={modalIsShow}
                 handleClose={() => setModalIsShow(!modalIsShow)}
             >
                 <Dialog
                     text="Are you sure you want to delete this wilder 😢 ??"
                     handleCancel={() => setModalIsShow(false)}
-                    handleConfirm={() => handleDelete()}
+                    handleConfirm={handleDelete}
                 />
-            </Modal> */}
+            </Modal>
         </div>
     );
 };
