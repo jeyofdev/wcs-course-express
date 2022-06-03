@@ -1,4 +1,4 @@
-import { IChildren } from '../interfaces/elements';
+import { IChildren } from '../types';
 
 const Header = ({ children }: IChildren) => {
     return (

@@ -20,7 +20,7 @@ const Card = ({ _id, name, city, skills }: WilderType) => {
             notifySuccess(`Wilder ${name} has been deleted`);
             setModalIsShow(false);
         },
-        onError: (error: any) => {
+        onError: (error) => {
             notifyError(error.message);
             setModalIsShow(false);
         },

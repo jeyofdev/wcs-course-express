@@ -1,5 +1,9 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 import { IInputProps } from '../interfaces/props/ui';
+
+export type IChildren = {
+    children: ReactNode;
+};
 
 export type SkillType = {
     title: string;
@@ -54,4 +58,9 @@ export type SelectPropsType = Pick<
     options: { id: number; value: string }[];
     labelDefault: string;
     valueDefault: string;
+};
+
+export type IWilderList = {
+    search: string;
+    filter: string;
 };

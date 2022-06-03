@@ -7,7 +7,7 @@ import { GetWilderType } from '../types';
 const Update = () => {
     const { wilderId } = useParams();
 
-    const { loading, error, data } = useQuery<GetWilderType>(GET_WILDER_BY_ID, {
+    const { loading, data } = useQuery<GetWilderType>(GET_WILDER_BY_ID, {
         variables: { wilderId },
     });
 

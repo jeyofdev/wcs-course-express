@@ -11,10 +11,17 @@ const options: ToastOptions = {
     progress: undefined,
 };
 
+/**
+ * Notification with success message
+ */
 export const notifySuccess = (message: string) => {
     return toast.success(message, options);
 };
 
+/**
+ *  * Notification with error message
+
+ */
 export const notifyError = (error: ToastContent | string) => {
     toast.error(error, options);
 };

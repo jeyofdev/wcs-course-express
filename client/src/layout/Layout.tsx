@@ -1,4 +1,4 @@
-import { IChildren } from '../interfaces/elements';
+import { IChildren } from '../types';
 import Footer from './Footer';
 import Header from './Header';
 

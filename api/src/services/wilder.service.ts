@@ -51,9 +51,7 @@ class WilderService {
       throw new Error(`No wilder found with id ${id}.`);
     }
 
-    WilderModel.deleteOne({ _id: id });
-
-    return wilder;
+    return WilderModel.findByIdAndDelete({ _id: id });
   };
 }
 
