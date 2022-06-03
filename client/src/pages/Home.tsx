@@ -1,15 +1,13 @@
 // import { ChangeEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 // import WildersList from '../components/wilders/WildersList';
-// import { PlusCircleIcon } from '@heroicons/react/solid';
+import { PlusCircleIcon } from '@heroicons/react/solid';
 // import Input from '../components/ui/form/Input';
 // import Select from '../components/ui/form/select';
 // import { optionsCities } from '../datas';
 import { ToastContainer } from 'react-toastify';
-import { useQuery } from '@apollo/client';
 import WildersList from '../components/wilders/WildersList';
-import { GET_WILDERS } from '../queries/queries';
-import { GetWildersType } from '../types';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     // const { loading, data } = useQuery<GetWildersType>(GET_WILDERS);
@@ -50,11 +48,10 @@ const Home = () => {
             {/* <WildersList search={search} filter={filter} /> */}
             <WildersList />
 
-            {/* <Link to="/create">
+            <Link to="/create">
                 <PlusCircleIcon className="h-20 w-20 text-red-500 mx-auto" />
             </Link>
 
-        */}
             <ToastContainer position="bottom-right" />
         </>
     );

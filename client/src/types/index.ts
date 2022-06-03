@@ -1,7 +1,5 @@
-// import { IWilder } from '../interfaces/elements';
 import { ChangeEvent } from 'react';
 import { IInputProps } from '../interfaces/props/ui';
-// import { IGetOneWilderParams } from '../interfaces/utils/query';
 
 export type SkillType = {
     title: string;
@@ -19,14 +17,26 @@ export type GetWildersType = {
     wilders: WilderType[];
 };
 
+export type GetWilderType = {
+    wilder: WilderType;
+};
+
+export type PostWilderType = {
+    postWilder: WilderType;
+};
+
+export type UpdateWilderType = {
+    updateWilder: WilderType;
+};
+
+export type DeleteWilderType = {
+    removeWilder: WilderType;
+};
+
 export type FormType = {
     method: 'post' | 'put';
     wilder?: WilderType;
 };
-
-// export type WilderPropsType = IWilder;
-
-// export type WilderWithoutIdType = Pick<IWilder, 'name' | 'city' | 'skills'>;
 
 export type InputPropsType = Pick<
     IInputProps,
@@ -45,9 +55,3 @@ export type SelectPropsType = Pick<
     labelDefault: string;
     valueDefault: string;
 };
-
-// export type GetWildersType = () => Promise<IWilder[]>;
-
-// export type GetWilderType = ({
-//     queryKey,
-// }: IGetOneWilderParams) => Promise<IWilder>;

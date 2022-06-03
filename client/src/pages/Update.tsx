@@ -1,55 +1,34 @@
-// import { useNavigate, useParams } from 'react-router-dom';
-// import WilderForm from '../components/wilders/WilderForm';
-// import { useGetWilderById, useUpdateWilder } from '../hooks/wildersHooks';
-// import Alert from '../components/ui/Alert';
+import { Link, useParams } from 'react-router-dom';
+import WilderForm from '../components/wilders/WilderForm';
+import { useQuery } from '@apollo/client';
+import { GET_WILDER_BY_ID } from '../queries/queries';
+import { GetWilderType } from '../types';
 
-// const Update = () => {
-//     const { id } = useParams();
-//     const navigate = useNavigate();
+const Update = () => {
+    const { wilderId } = useParams();
 
-//     const { isLoading, isError, error, data: wilder } = useGetWilderById(id);
+    const { loading, error, data } = useQuery<GetWilderType>(GET_WILDER_BY_ID, {
+        variables: { wilderId },
+    });
 
-//     const { mutateAsync, isLoading: isMutating } = useUpdateWilder(navigate);
+    return (
+        <>
+            <Link
+                to="/"
+                className="inline-block bg-red-500 text-gray-50 py-2 px-4 rounded no-underline my-4 mx-0"
+            >
+                Back to home
+            </Link>
 
-//     if (isLoading) {
-//         return (
-//             <div className="w-full max-w-sm mx-auto">
-//                 <Alert className="border-blue-300 bg-blue-100 text-blue-900 mx-0">
-//                     Loading wilder...
-//                 </Alert>
-//             </div>
-//         );
-//     }
+            <h2 className="mb-8 mt-10 text-red-500 font-bold text-2xl text-center">
+                Update the user {data?.wilder?.name}
+            </h2>
 
-//     if (isError) {
-//         return (
-//             <div className="w-full max-w-sm mx-auto ">
-//                 <Alert className="border-red-300 bg-red-100 text-red-900 mx-0">
-//                     {error.message}
-//                 </Alert>
-//             </div>
-//         );
-//     }
+            {!loading && data?.wilder && (
+                <WilderForm method="put" wilder={data?.wilder} />
+            )}
+        </>
+    );
+};
 
-//     return (
-//         <>
-//             <h1 className="mb-8 mt-10 text-red-500 font-bold text-2xl text-center">
-//                 Update the wilder{' '}
-//                 {wilder &&
-//                     wilder.name.slice(0, 1).toUpperCase() +
-//                         wilder.name.slice(1).toLowerCase()}
-//                 .
-//             </h1>
-
-//             <WilderForm
-//                 isCreated={false}
-//                 defaultValues={wilder}
-//                 mutation={mutateAsync}
-//             />
-//         </>
-//     );
-// };
-
-// export default Update;
-
-export {};
+export default Update;

@@ -1,13 +1,13 @@
 import Alert from '../ui/Alert';
 import Wilder from './Wilder';
+import { useQuery } from '@apollo/client';
+import { GET_WILDERS } from '../../queries/queries';
 // import { useGetWilders } from '../../hooks/wildersHooks';
 // import { filtersWilders } from '../../utils/filters';
 // import { useState, useEffect } from 'react';
 // import { IWilder } from '../../interfaces/elements';
 // import { IWilderList } from '../../interfaces/props/elements';
 import { GetWildersType } from '../../types';
-import { GET_WILDERS } from '../../queries/queries';
-import { useQuery } from '@apollo/client';
 
 const WildersList = (/*search, filter*/) => {
     const { loading, data, error } = useQuery<GetWildersType>(GET_WILDERS);

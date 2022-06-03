@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Create from './pages/Create';
-// import Update from './pages/Update';
+import Update from './pages/Update';
 
 const App = () => {
     return (
@@ -12,7 +12,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/create" element={<Create />} />
-                    {/* <Route path="/update/:id" element={<Update />} /> */}
+                    <Route path="/update/:wilderId" element={<Update />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Layout>
