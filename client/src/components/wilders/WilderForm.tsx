@@ -4,11 +4,18 @@ import { useMutation } from '@apollo/client';
 import { CREATE_WILDER, UPDATE_WILDER } from '../../queries/mutation';
 import { GET_WILDERS } from '../../queries/queries';
 import { notifyError, notifySuccess } from '../../utils/notifications';
-import { FormType, PostWilderType, UpdateWilderType } from '../../types';
+import {
+    FormType,
+    PostWilderType,
+    SkillType,
+    UpdateWilderType,
+} from '../../types';
 import Button from '../ui/Button';
 import Input from '../ui/form/Input';
 import Select from '../ui/form/select';
-import { optionsCities } from '../../datas';
+import { optionsCities, optionsSkills } from '../../datas';
+import Checkbox from '../ui/form/Checkbox';
+import { v4 as uuid } from 'uuid';
 
 const WilderForm = ({ method, wilder }: FormType) => {
     const navigate = useNavigate();
@@ -50,6 +57,25 @@ const WilderForm = ({ method, wilder }: FormType) => {
         e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         setFormDatas({ ...formDatas, [e.target.name]: e.target.value });
+    };
+
+    const handleChangeSkill = (e: any) => {
+        setFormDatas(
+            e.target.checked
+                ? {
+                      ...formDatas,
+                      skills: [
+                          ...formDatas?.skills,
+                          { title: e.target.name, votes: 0 },
+                      ],
+                  }
+                : {
+                      ...formDatas,
+                      skills: formDatas?.skills.filter(
+                          (skill: SkillType) => skill.title !== e.target.name
+                      ),
+                  }
+        );
     };
 
     const handleSubmit: any = async (e: SubmitEvent) => {
@@ -97,7 +123,24 @@ const WilderForm = ({ method, wilder }: FormType) => {
                     />
                 </div>
 
-                <Button className="bg-red-500 ml-0">
+                {optionsSkills.map((skill) => (
+                    <>
+                        <Checkbox
+                            key={uuid()}
+                            label={skill?.value}
+                            name={skill?.value}
+                            checked={
+                                formDatas?.skills.filter(
+                                    (item: SkillType) =>
+                                        item.title === skill?.value
+                                ).length > 0
+                            }
+                            onChange={handleChangeSkill}
+                        />
+                    </>
+                ))}
+
+                <Button className="bg-red-500 ml-0 mt-6">
                     {method === 'post' ? 'Add new wilder' : 'Update wilder'}
                 </Button>
             </form>

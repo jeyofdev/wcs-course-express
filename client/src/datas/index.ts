@@ -7,9 +7,9 @@ export const optionsCities = [
 ];
 
 export const optionsSkills = [
-    { id: 1, value: 'React' },
-    { id: 2, value: 'VueJs' },
-    { id: 3, value: 'Angular' },
-    { id: 4, value: 'Symfony' },
-    { id: 5, value: 'Laravel' },
+    { id: 1, value: 'REACT' },
+    { id: 2, value: 'VUE' },
+    { id: 3, value: 'ANGULAR' },
+    { id: 4, value: 'SYMFONY' },
+    { id: 5, value: 'LARAVEL' },
 ];

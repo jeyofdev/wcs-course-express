@@ -9,6 +9,7 @@ const Update = () => {
 
     const { loading, data } = useQuery<GetWilderType>(GET_WILDER_BY_ID, {
         variables: { wilderId },
+        fetchPolicy: 'network-only',
     });
 
     return (
