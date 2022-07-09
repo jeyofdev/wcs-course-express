@@ -1,26 +1,25 @@
-import * as mongoose from 'mongoose';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
-const { MONGO_URI } = process.env;
+import mongoose from 'mongoose';
 
 /**
  * Connect to mongoDB
  */
-const ConnectDb = async (
+const ConnectDb = (
+  uri: string,
   success: string,
   options?: mongoose.ConnectOptions | undefined
 ) => {
-  if (!MONGO_URI) {
-    throw new Error('A MONGO_URL must be provided in .env');
-  }
-
   try {
-    await mongoose.connect(MONGO_URI, options);
+    mongoose.connect(uri, options);
     console.log(success);
   } catch (err) {
     console.log(err);
   }
 };
 
-export default ConnectDb;
+const databaseConnection = (url: string, success: string) => {
+  // Connect MongoDB
+  const connectOptions = { autoIndex: true };
+  ConnectDb(url, success, connectOptions);
+};
+
+export default databaseConnection;
