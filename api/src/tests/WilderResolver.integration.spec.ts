@@ -4,6 +4,7 @@ import getApolloServer from '../config/getAppolloServer';
 import databaseConnection, {
   closeDatabaseConnexion,
 } from '../config/database.config';
+import { GET_WILDERS } from './queries';
 
 dotenv.config();
 
@@ -28,8 +29,13 @@ describe('Server API apollo graphql', () => {
 
   describe('Query wilders', () => {
     describe('when there are no wilders in database', () => {
-      it('returns empty array', () => {
-        expect(1 + 2).toBe(3);
+      it('returns empty array', async () => {
+        const result = await server.executeOperation({
+          query: GET_WILDERS,
+        });
+
+        expect(result.errors).toBeUndefined();
+        expect(result?.data?.wilders).toStrictEqual([]);
       });
     });
   });
