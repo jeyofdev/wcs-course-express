@@ -22,4 +22,8 @@ const databaseConnection = (url: string, success: string) => {
   ConnectDb(url, success, connectOptions);
 };
 
+export const closeDatabaseConnexion = () => {
+  mongoose.connection.close();
+};
+
 export default databaseConnection;

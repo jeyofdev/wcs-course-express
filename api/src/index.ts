@@ -1,10 +1,8 @@
 import 'reflect-metadata';
-import { ApolloServer } from 'apollo-server-express';
 import * as Express from 'express';
-import { buildSchema } from 'type-graphql';
 import * as dotenv from 'dotenv';
-import { Container } from 'typedi';
 import databaseConnection from './config/database.config';
+import getApolloServer from './config/getAppolloServer';
 
 dotenv.config();
 const { PORT } = process.env;
@@ -17,15 +15,10 @@ databaseConnection(process.env.MONGO_URI, 'Connected to database MongoDB');
 
 // Server
 const serverStart = async () => {
-  const schema = await buildSchema({
-    resolvers: [`${__dirname}/**/*.resolver.{ts,js}`],
-    container: Container,
-  });
-
-  const apolloServer = await new ApolloServer({ schema });
-  apolloServer.start().then(() => {
+  const server = await getApolloServer();
+  server.start().then(() => {
     const app = Express();
-    apolloServer.applyMiddleware({ app });
+    server.applyMiddleware({ app });
 
     app.listen(PORT, () => {
       try {

@@ -1,10 +1,16 @@
-import { prop as Property, getModelForClass } from '@typegoose/typegoose';
+import {
+  prop as Property,
+  getModelForClass,
+  Severity,
+  modelOptions,
+} from '@typegoose/typegoose';
 import { ObjectId } from 'mongodb';
 import { Field, ObjectType } from 'type-graphql';
 import ObjectIdScalar from '../scalars/objectId.scalar';
 import Skill from './skill.model';
 
 @ObjectType({ description: 'Model for the wilders' })
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class Wilder {
   @Field(() => ObjectIdScalar, {
     description: 'ObjectId for each wilder in mongoDb',
