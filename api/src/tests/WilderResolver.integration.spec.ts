@@ -4,7 +4,9 @@ import getApolloServer from '../config/getAppolloServer';
 import databaseConnection, {
   closeDatabaseConnexion,
 } from '../config/database.config';
-import { GET_WILDERS } from './queries';
+import { CREATE_WILDER, GET_WILDERS, UPDATE_WILDER } from './queries';
+import wilderModel from '../models/wilder.model';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -23,9 +25,18 @@ describe('Server API apollo graphql', () => {
       process.env.MONGO_URI_TEST,
       'Connected to test database MongoDB'
     );
+
+    // purge database test
+    const collections = Object.keys(mongoose.connection.collections);
+    for (const collectionName of collections) {
+      const collection = mongoose.connection.collections[collectionName];
+      collection.deleteMany({});
+    }
   });
 
-  afterAll(async () => closeDatabaseConnexion());
+  afterAll(async () => {
+    closeDatabaseConnexion();
+  });
 
   describe('Query wilders', () => {
     describe('when there are no wilders in database', () => {
@@ -37,6 +48,27 @@ describe('Server API apollo graphql', () => {
         expect(result.errors).toBeUndefined();
         expect(result?.data?.wilders).toStrictEqual([]);
       });
+    });
+  });
+
+  describe('Mutation', () => {
+    it('Create wilder', async () => {
+      await server.executeOperation({
+        query: CREATE_WILDER,
+        variables: {
+          name: 'john',
+          city: 'Bordeaux',
+          skills: [],
+        },
+      });
+
+      const result = await wilderModel.findOne({ name: 'john' });
+
+      expect(result).toBeDefined();
+      expect(result?._id).toBeDefined();
+      expect(result).toHaveProperty('_id');
+      expect(result).toHaveProperty('city', 'Bordeaux');
+      expect(result).toHaveProperty('skills', []);
     });
   });
 });
