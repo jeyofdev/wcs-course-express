@@ -4,7 +4,7 @@ import getApolloServer from '../config/getAppolloServer';
 import databaseConnection, {
   closeDatabaseConnexion,
 } from '../config/database.config';
-import { CREATE_WILDER, GET_WILDERS, UPDATE_WILDER } from './queries';
+import { CREATE_WILDER, GET_WILDERS } from './queries';
 import wilderModel from '../models/wilder.model';
 import mongoose from 'mongoose';
 
@@ -52,7 +52,7 @@ describe('Server API apollo graphql', () => {
   });
 
   describe('Mutation', () => {
-    it('Create wilder', async () => {
+    it('when a wilder is created', async () => {
       await server.executeOperation({
         query: CREATE_WILDER,
         variables: {
@@ -69,6 +69,42 @@ describe('Server API apollo graphql', () => {
       expect(result).toHaveProperty('_id');
       expect(result).toHaveProperty('city', 'Bordeaux');
       expect(result).toHaveProperty('skills', []);
+    });
+
+    it('when many wilder are created', async () => {
+      await server.executeOperation({
+        query: CREATE_WILDER,
+        variables: {
+          name: 'john',
+          city: 'Bordeaux',
+          skills: [],
+        },
+      });
+
+      await server.executeOperation({
+        query: CREATE_WILDER,
+        variables: {
+          name: 'marie',
+          city: 'Paris',
+          skills: [],
+        },
+      });
+
+      const resultOne = await wilderModel.findOne({ name: 'john' });
+
+      expect(resultOne).toBeDefined();
+      expect(resultOne?._id).toBeDefined();
+      expect(resultOne).toHaveProperty('_id');
+      expect(resultOne).toHaveProperty('city', 'Bordeaux');
+      expect(resultOne).toHaveProperty('skills', []);
+
+      const resultTwo = await wilderModel.findOne({ name: 'marie' });
+
+      expect(resultTwo).toBeDefined();
+      expect(resultTwo?._id).toBeDefined();
+      expect(resultTwo).toHaveProperty('_id');
+      expect(resultTwo).toHaveProperty('city', 'Paris');
+      expect(resultTwo).toHaveProperty('skills', []);
     });
   });
 });
