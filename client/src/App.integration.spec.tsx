@@ -3,7 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import App from './App';
 import { BrowserRouter, Routes } from 'react-router-dom';
@@ -25,7 +25,17 @@ describe('App and Home', () => {
         renderApp();
     });
 
-    it('first test', () => {
-        expect(1 + 2).toStrictEqual(3);
+    describe('renders layout', () => {
+        it('renders title in header', () => {
+            const title = screen.getByRole('heading', { level: 1 });
+            expect(title.textContent).toStrictEqual('Wilders Book');
+        });
+
+        it('renders copyright in footer', () => {
+            const footer = screen.getByRole('footer');
+            expect(footer.textContent).toStrictEqual(
+                '@ Copyright 2022 | Jeyofdev'
+            );
+        });
     });
 });
