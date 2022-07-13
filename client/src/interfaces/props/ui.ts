@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 export interface IAlertProps {
     children: ReactNode;
     className?: string;
+    role?: string;
 }
 
 export interface IButtonProps {

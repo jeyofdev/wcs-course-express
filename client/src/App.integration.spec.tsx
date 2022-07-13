@@ -38,4 +38,11 @@ describe('App and Home', () => {
             );
         });
     });
+
+    describe('loading wilders', () => {
+        it('render a loading indicator', () => {
+            const progress = screen.getByRole('progress');
+            expect(progress).toBeInTheDocument();
+        });
+    });
 });

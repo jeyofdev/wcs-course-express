@@ -20,7 +20,10 @@ const WildersList = ({ search, filter }: IWilderList) => {
     if (loading) {
         return (
             <div className="w-full max-w-sm mx-auto">
-                <Alert className="border-blue-300 bg-blue-100 text-blue-900 mx-0">
+                <Alert
+                    className="border-blue-300 bg-blue-100 text-blue-900 mx-0"
+                    role="progress"
+                >
                     Loading wilders...
                 </Alert>
             </div>
