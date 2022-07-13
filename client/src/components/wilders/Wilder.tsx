@@ -35,7 +35,10 @@ const Card = ({ _id, name, city, skills }: WilderType) => {
     };
 
     return (
-        <div className="relative rounded-lg border-solid border-gray-200 border-2 sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto">
+        <div
+            className="relative rounded-lg border-solid border-gray-200 border-2 sm:mx-4 px-4 my-4 max-w-300px mx-auto sm:max-w-auto"
+            role="article"
+        >
             <button
                 className="absolute right-10 mt-2"
                 onClick={() => navigate(`/update/${_id}`)}

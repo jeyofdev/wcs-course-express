@@ -43,7 +43,10 @@ const WildersList = ({ search, filter }: IWilderList) => {
     return (
         <>
             {wildersFiltrered?.length > 0 ? (
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4 pb-4">
+                <div
+                    className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4 pb-4"
+                    data-testid="wilderList"
+                >
                     {wildersFiltrered.map((wilder: WilderType) => (
                         <Wilder
                             key={wilder._id}
