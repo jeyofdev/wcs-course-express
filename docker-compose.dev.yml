@@ -6,10 +6,14 @@ services:
         volumes:
             - ./api:/app
             - /app/node_modules
+        depends_on:
+            - database
+            - database-test
         ports:
             - 4040:4000
         environment:
             MONGO_URI: mongodb://database:27017/wild-app-alternance
+            MONGO_URI_TEST: mongodb://database:27017/wild-app-alternance-test
 
     client:
         build: ./client
@@ -25,4 +29,10 @@ services:
         image: mongo
         ports:
             - 27017:27017
+        restart: always
+
+    database-test:
+        image: mongo
+        ports:
+            - 27018:27018
         restart: always
