@@ -30,6 +30,8 @@ services:
         ports:
             - 27017:27017
         restart: always
+        volumes:
+            - ./data:/data/db
 
     database-test:
         image: mongo
