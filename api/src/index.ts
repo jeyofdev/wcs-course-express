@@ -7,17 +7,17 @@ import getApolloServer from './config/getAppolloServer';
 dotenv.config();
 const { PORT } = process.env;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL must be set in environment');
-}
-databaseConnection(
-  process.env.DATABASE_URL,
-  'Connected to database postgres',
-  true
-);
-
 // Server
 const serverStart = async () => {
+  if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL must be set in environment');
+  }
+
+  await databaseConnection(process.env.DATABASE_URL, true);
+
+  // eslint-disable-next-line no-console
+  console.log('Connected to database');
+
   const server = await getApolloServer();
 
   server.start().then(() => {

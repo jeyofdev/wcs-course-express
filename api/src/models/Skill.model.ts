@@ -10,7 +10,7 @@ class Skill {
   @Field(() => ID)
   id!: Number;
 
-  @Column()
+  @Column('varchar')
   @Field(() => SkillName, { description: 'Name of the skill' })
   title!: SkillName;
 

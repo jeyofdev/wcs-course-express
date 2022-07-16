@@ -7,7 +7,6 @@ import Wilder from '../models/Wilder.model';
  */
 const databaseConnection = async (
   url: string,
-  success: string,
   logging: boolean = false
 ) => {
   await createConnection({
@@ -17,8 +16,6 @@ const databaseConnection = async (
     synchronize: true,
     logging,
   });
-
-  console.log(success);
 };
 
 export default databaseConnection;

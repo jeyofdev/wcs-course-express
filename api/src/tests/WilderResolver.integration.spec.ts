@@ -1,110 +1,134 @@
-// import { ApolloServer } from 'apollo-server-express';
-// import * as dotenv from 'dotenv';
-// import getApolloServer from '../config/getAppolloServer';
-// import databaseConnection, {
-//   closeDatabaseConnexion,
-// } from '../config/database.config';
-// import { CREATE_WILDER, GET_WILDERS } from './queries';
-// import wilderModel from '../models/wilder.model';
-// import mongoose from 'mongoose';
+import { ApolloServer } from 'apollo-server-express';
+import * as dotenv from 'dotenv';
+import { getConnection } from 'typeorm';
+import getApolloServer from '../config/getAppolloServer';
+import databaseConnection from '../config/database.config';
+import { CREATE_WILDER, GET_WILDERS } from './queries';
+import wilderModel from '../models/wilder.model';
 
-// dotenv.config();
+dotenv.config();
 
-// describe('Server API apollo graphql', () => {
-//   let dbConnexion: any;
-//   let server: ApolloServer;
+describe('Server API apollo graphql', () => {
+  let server: ApolloServer;
 
-//   beforeAll(async () => {
-//     if (!process.env.MONGO_URI_TEST) {
-//       throw new Error('A MONGO_URI_TEST must be provided in .env');
-//     }
+  beforeAll(async () => {
+    if (!process.env.DATABASE_URL_TEST) {
+      throw new Error('DATABASE_URL must be set in environment');
+    }
 
-//     server = await getApolloServer();
+    server = await getApolloServer();
 
-//     dbConnexion = databaseConnection(
-//       process.env.MONGO_URI_TEST,
-//       'Connected to test database MongoDB'
-//     );
+    return databaseConnection(process.env.DATABASE_URL_TEST);
+  });
 
-//     // purge database test
-//     const collections = Object.keys(mongoose.connection.collections);
-//     for (const collectionName of collections) {
-//       const collection = mongoose.connection.collections[collectionName];
-//       collection.deleteMany({});
-//     }
-//   });
+  beforeEach(async () => {
+    const entities = getConnection().entityMetadatas;
 
-//   afterAll(async () => {
-//     closeDatabaseConnexion();
-//   });
+    // purge database test
+    for (const entity of entities) {
+      const repository = getConnection().getRepository(entity.name);
+      // await repository.clear();
+      await repository.query(
+        `TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE`
+      );
+    }
+  });
 
-//   describe('Query wilders', () => {
-//     describe('when there are no wilders in database', () => {
-//       it('returns empty array', async () => {
-//         const result = await server.executeOperation({
-//           query: GET_WILDERS,
-//         });
+  afterAll(async () => getConnection().close());
 
-//         expect(result.errors).toBeUndefined();
-//         expect(result?.data?.wilders).toStrictEqual([]);
-//       });
-//     });
-//   });
+  describe('Query wilders', () => {
+    describe('when there are no wilders in database', () => {
+      it('returns empty array', async () => {
+        const result = await server.executeOperation({
+          query: GET_WILDERS,
+        });
 
-//   describe('Mutation', () => {
-//     it('when a wilder is created', async () => {
-//       await server.executeOperation({
-//         query: CREATE_WILDER,
-//         variables: {
-//           name: 'john',
-//           city: 'Bordeaux',
-//           skills: [],
-//         },
-//       });
+        expect(result.errors).toBeUndefined();
+        expect(result?.data?.wilders).toStrictEqual([]);
+      });
+    });
+  });
 
-//       const result = await wilderModel.findOne({ name: 'john' });
+  describe('Mutation', () => {
+    it('when a wilder is created', async () => {
+      const result = await server.executeOperation({
+        query: CREATE_WILDER,
+        variables: {
+          name: 'john',
+          city: 'Bordeaux',
+          skills: [],
+        },
+      });
 
-//       expect(result).toBeDefined();
-//       expect(result?.id).toBeDefined();
-//       expect(result).toHaveProperty('id');
-//       expect(result).toHaveProperty('city', 'Bordeaux');
-//       expect(result).toHaveProperty('skills', []);
-//     });
+      const wilder = await wilderModel.findOne({ name: 'john' });
 
-//     it('when many wilder are created', async () => {
-//       await server.executeOperation({
-//         query: CREATE_WILDER,
-//         variables: {
-//           name: 'john',
-//           city: 'Bordeaux',
-//           skills: [],
-//         },
-//       });
+      expect(wilder).toBeDefined();
+      expect(wilder?.id).toBeDefined();
+      expect(wilder).toHaveProperty('id');
+      expect(wilder).toHaveProperty('city', 'Bordeaux');
 
-//       await server.executeOperation({
-//         query: CREATE_WILDER,
-//         variables: {
-//           name: 'marie',
-//           city: 'Paris',
-//           skills: [],
-//         },
-//       });
+      expect(wilder).toMatchInlineSnapshot(`
+        Wilder {
+          "city": "Bordeaux",
+          "id": 1,
+          "name": "john",
+          "skills": undefined,
+        }
+      `);
 
-//       const resultOne = await wilderModel.findOne({ name: 'john' });
+      expect(result.errors).toBeUndefined();
+      expect(result.data?.postWilder).toHaveProperty('skills', []);
 
-//       expect(resultOne).toBeDefined();
-//       expect(resultOne?.id).toBeDefined();
-//       expect(resultOne).toHaveProperty('id');
-//       expect(resultOne).toHaveProperty('city', 'Bordeaux');
-//       expect(resultOne).toHaveProperty('skills', []);
+      expect(result.data?.postWilder).toMatchInlineSnapshot(`
+        Object {
+          "city": "Bordeaux",
+          "name": "john",
+          "skills": Array [],
+        }
+      `);
+    });
 
-//       const resultTwo = await wilderModel.findOne({ name: 'marie' });
+    it('when many wilder are created', async () => {
+      await server.executeOperation({
+        query: CREATE_WILDER,
+        variables: {
+          name: 'john',
+          city: 'Bordeaux',
+          skills: [],
+        },
+      });
 
-//       expect(resultTwo).toBeDefined();
-//       expect(resultTwo?.id).toBeDefined();
-//       expect(resultTwo).toHaveProperty('id');
-//       expect(resultTwo).toHaveProperty('city', 'Paris');
-//       expect(resultTwo).toHaveProperty('skills', []);
-//     });
-//   });
-// });
+      await server.executeOperation({
+        query: CREATE_WILDER,
+        variables: {
+          name: 'marie',
+          city: 'Paris',
+          skills: [],
+        },
+      });
+
+      const result = await server.executeOperation({
+        query: GET_WILDERS,
+      });
+
+      expect(result.errors).toBeUndefined();
+      expect(result?.data?.wilders).not.toStrictEqual([]);
+      expect(result.data?.wilders).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "city": "Paris",
+            "id": "2",
+            "name": "marie",
+            "skills": Array [],
+          },
+          Object {
+            "city": "Bordeaux",
+            "id": "1",
+            "name": "john",
+            "skills": Array [],
+          },
+        ]
+      `);
+    });
+  });
+});
