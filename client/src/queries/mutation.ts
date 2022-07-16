@@ -7,7 +7,7 @@ export const CREATE_WILDER = gql`
         $skills: [SkillInput!]!
     ) {
         postWilder(name: $name, city: $city, skills: $skills) {
-            _id
+            id
             name
             city
             skills {
@@ -26,7 +26,7 @@ export const UPDATE_WILDER = gql`
         $skills: [SkillInput!]
     ) {
         updateWilder(id: $wilderId, name: $name, city: $city, skills: $skills) {
-            _id
+            id
             name
             city
             skills {
@@ -40,7 +40,7 @@ export const UPDATE_WILDER = gql`
 export const DELETE_WILDER = gql`
     mutation removeWilder($wilderId: String!) {
         removeWilder(wilderId: $wilderId) {
-            _id
+            id
             name
             city
             skills {

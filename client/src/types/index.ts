@@ -11,7 +11,7 @@ export type SkillType = {
 };
 
 export type WilderType = {
-    _id: string;
+    id: string;
     name: string;
     city: string;
     skills: SkillType[];

@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_WILDERS = gql`
     query wilders {
         wilders {
-            _id
+            id
             name
             city
             skills {
@@ -14,10 +14,10 @@ export const GET_WILDERS = gql`
     }
 `;
 
-export const GET_WILDER_BY_ID = gql`
+export const GET_WILDER_BYid = gql`
     query wilder($wilderId: String!) {
         wilder(wilderId: $wilderId) {
-            _id
+            id
             name
             city
             skills {

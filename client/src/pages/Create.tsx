@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import WilderForm from '../components/wilders/WilderForm';
 
 const Create = () => {
@@ -16,6 +17,8 @@ const Create = () => {
             </h1>
 
             <WilderForm method="post" />
+
+            <ToastContainer position="bottom-right" />
         </>
     );
 };

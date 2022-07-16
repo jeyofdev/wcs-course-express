@@ -7,7 +7,6 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import {} from 'class-validator';
 import Skill from './skill.model';
 
 @ObjectType({ description: 'Model for the wilders' })
@@ -19,20 +18,17 @@ export class Wilder extends BaseEntity {
   })
   id!: Number;
 
-  @Column({ unique: true })
+  @Column()
   @Field(() => String, { description: 'Name of the wilder' })
-  // @Property({ unique: true, required: [true, 'The name is required!'] })
   name: string;
 
   @Column()
   @Field(() => String, { description: 'City of the wilder' })
-  // @Property({ required: [true, 'The city is required!'] })
   city: string;
 
   @ManyToMany(() => Skill)
   @JoinTable()
   @Field(() => [Skill], { description: 'Skills list of the wilder' })
-  // @Property({ required: [true, 'The skills list is required!'] })
   skills: Skill[];
 }
 

@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import { CREATE_WILDER, UPDATE_WILDER } from '../../queries/mutation';
 import { GET_WILDERS } from '../../queries/queries';
 import { notifyError, notifySuccess } from '../../utils/notifications';
@@ -87,7 +87,7 @@ const WilderForm = ({ method, wilder }: FormType) => {
             }
             if (method === 'put') {
                 updateWilder({
-                    variables: { wilderId: wilder?._id, ...formDatas },
+                    variables: { wilderId: wilder?.id, ...formDatas },
                 });
             }
         } catch (error) {}

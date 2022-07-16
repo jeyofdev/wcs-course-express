@@ -49,8 +49,8 @@ const WildersList = ({ search, filter }: IWilderList) => {
                 >
                     {wildersFiltrered.map((wilder: WilderType) => (
                         <Wilder
-                            key={wilder._id}
-                            _id={wilder._id}
+                            key={wilder.id}
+                            id={wilder.id}
                             name={wilder.name}
                             city={wilder.city}
                             skills={wilder.skills}

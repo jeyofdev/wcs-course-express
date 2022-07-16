@@ -11,7 +11,7 @@ import Skill from '../skills/skill';
 import Modal from '../ui/modal';
 import Dialog from '../ui/modal/dialog';
 
-const Card = ({ _id, name, city, skills }: WilderType) => {
+const Card = ({ id, name, city, skills }: WilderType) => {
     const navigate = useNavigate();
     const [modalIsShow, setModalIsShow] = useState<boolean>(false);
 
@@ -29,7 +29,7 @@ const Card = ({ _id, name, city, skills }: WilderType) => {
 
     const handleDelete = () => {
         try {
-            deleteWilder({ variables: { wilderId: _id } });
+            deleteWilder({ variables: { wilderId: id } });
             setModalIsShow(false);
         } catch (error) {}
     };
@@ -41,7 +41,7 @@ const Card = ({ _id, name, city, skills }: WilderType) => {
         >
             <button
                 className="absolute right-10 mt-2"
-                onClick={() => navigate(`/update/${_id}`)}
+                onClick={() => navigate(`/update/${id}`)}
             >
                 <PencilAltIcon
                     className="h-6 w-6 text-green-500"

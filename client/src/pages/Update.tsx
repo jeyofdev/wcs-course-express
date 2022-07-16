@@ -1,13 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
 import WilderForm from '../components/wilders/WilderForm';
 import { useQuery } from '@apollo/client';
-import { GET_WILDER_BY_ID } from '../queries/queries';
+import { GET_WILDER_BYid } from '../queries/queries';
 import { GetWilderType } from '../types';
 
 const Update = () => {
     const { wilderId } = useParams();
 
-    const { loading, data } = useQuery<GetWilderType>(GET_WILDER_BY_ID, {
+    const { loading, data } = useQuery<GetWilderType>(GET_WILDER_BYid, {
         variables: { wilderId },
         fetchPolicy: 'network-only',
     });

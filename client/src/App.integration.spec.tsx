@@ -16,13 +16,13 @@ describe('App and Home', () => {
             data: {
                 wilders: [
                     {
-                        _id: '62cb0b606c9e7680366b2895',
+                        id: '62cb0b606c9e7680366b2895',
                         name: 'john',
                         city: 'Paris',
                         skills: [],
                     },
                     {
-                        _id: '62cb0ebdd523793a3a50f4b0',
+                        id: '62cb0ebdd523793a3a50f4b0',
                         name: 'Marie',
                         city: 'Paris',
                         skills: [],
