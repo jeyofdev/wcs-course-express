@@ -7,15 +7,19 @@ import getApolloServer from './config/getAppolloServer';
 dotenv.config();
 const { PORT } = process.env;
 
-// Connect MongoDB
-if (!process.env.MONGO_URI) {
-  throw new Error('A MONGO_URI must be provided in .env');
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL must be set in environment');
 }
-databaseConnection(process.env.MONGO_URI, 'Connected to database MongoDB');
+databaseConnection(
+  process.env.DATABASE_URL,
+  'Connected to database postgres',
+  true
+);
 
 // Server
 const serverStart = async () => {
   const server = await getApolloServer();
+
   server.start().then(() => {
     const app = Express();
     server.applyMiddleware({ app });

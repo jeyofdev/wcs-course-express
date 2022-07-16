@@ -1,24 +1,24 @@
-version: '3.9'
+# version: '3.9'
 
-services:
-    api:
-        build: ./api
-        volumes:
-            - ./api:/app
-            - /app/node_modules
-        ports:
-            - 4040:4000
+# services:
+#     api:
+#         build: ./api
+#         volumes:
+#             - ./api:/app
+#             - /app/node_modules
+#         ports:
+#             - 4040:4000
 
-    client:
-        build: ./client
-        ports:
-            - 8080:3000
-        depends_on:
-            - api
-        volumes:
-            - ./client:/app
-            - /app/node_modules
+#     client:
+#         build: ./client
+#         ports:
+#             - 8080:3000
+#         depends_on:
+#             - api
+#         volumes:
+#             - ./client:/app
+#             - /app/node_modules
 
-    database:
-        image: mongo
-        restart: always
+#     database:
+#         image: mongo
+#         restart: always

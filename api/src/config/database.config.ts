@@ -1,29 +1,24 @@
-import mongoose from 'mongoose';
+import { createConnection } from 'typeorm';
+import Skill from '../models/skill.model';
+import Wilder from '../models/Wilder.model';
 
 /**
- * Connect to mongoDB
+ * Connextion to database
  */
-const ConnectDb = (
-  uri: string,
+const databaseConnection = async (
+  url: string,
   success: string,
-  options?: mongoose.ConnectOptions | undefined
+  logging: boolean = false
 ) => {
-  try {
-    mongoose.connect(uri, options);
-    console.log(success);
-  } catch (err) {
-    console.log(err);
-  }
-};
+  await createConnection({
+    type: 'postgres',
+    url,
+    entities: [Wilder, Skill],
+    synchronize: true,
+    logging,
+  });
 
-const databaseConnection = (url: string, success: string) => {
-  // Connect MongoDB
-  const connectOptions = { autoIndex: true };
-  ConnectDb(url, success, connectOptions);
-};
-
-export const closeDatabaseConnexion = () => {
-  mongoose.connection.close();
+  console.log(success);
 };
 
 export default databaseConnection;

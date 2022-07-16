@@ -1,57 +1,65 @@
-import WilderCreateInput from 'src/inputs/wilderCreate.input';
-import WilderUpdateInput from 'src/inputs/wilderUpdate.input';
+import WilderCreateInput from '../inputs/wilderCreate.input';
+import WilderUpdateInput from '../inputs/wilderUpdate.input';
 import { Service } from 'typedi';
 import WilderModel from '../models/Wilder.model';
 
 @Service()
 class WilderService {
   // find all wilders
-  find = () => WilderModel.find();
+  find = () => WilderModel.find({ relations: ['skills'] });
 
-  // Find wilder by id
+  // // Find wilder by id
   findById = async (id: string) => {
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-      throw new Error(`The id ${id} is not in objectId format valid.`);
-    }
-
-    const wilder = await WilderModel.findById(id);
+    const wilder = await WilderModel.findOne({ id }, { relations: ['skills'] });
 
     if (!wilder) {
       throw new Error(`No wilder found with id ${id}.`);
     }
+
     return wilder;
   };
 
-  save = (data: WilderCreateInput) => WilderModel.create(data);
+  // post new wilder
+  save = async (data: WilderCreateInput) => {
+    const wilder = new WilderModel();
+
+    wilder.name = data?.name;
+    wilder.city = data?.city;
+
+    await wilder.save();
+
+    return WilderModel.findOne({ id: wilder.id }, { relations: ['skills'] });
+  };
 
   // update wilder
   update = async (data: WilderUpdateInput) => {
-    if (!data?.id.match(/^[0-9a-fA-F]{24}$/)) {
-      throw new Error(`The id ${data?.id} is not in objectId format.`);
-    }
+    const wilder = await WilderModel.findOne({ id: data?.id });
 
-    const wilder = await WilderModel.findById(data?.id);
     if (!wilder) {
       throw new Error(`No wilder found with id ${data?.id}.`);
     }
 
-    await WilderModel.updateOne({ _id: data?.id }, data);
+    await WilderModel.update(wilder, { name: data?.name, city: data?.city });
 
-    return WilderModel.findById(data?.id);
+    const updatedWilder = await WilderModel.findOne(
+      { id: data?.id },
+      { relations: ['skills'] }
+    );
+
+    return updatedWilder;
   };
 
   // delete wilder
   remove = async (id: string) => {
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-      throw new Error(`The id ${id} is not in objectId format.`);
-    }
+    const wilder = await WilderModel.findOne({ id }, { relations: ['skills'] });
 
-    const wilder = await WilderModel.findById(id);
     if (!wilder) {
       throw new Error(`No wilder found with id ${id}.`);
     }
 
-    return WilderModel.findByIdAndDelete({ _id: id });
+    await WilderModel.remove(wilder);
+
+    return { ...wilder, id };
   };
 }
 

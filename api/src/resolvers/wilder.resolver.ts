@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Arg, Args } from 'type-graphql';
+import { Resolver, Query, Mutation, Args, Arg } from 'type-graphql';
 import { Service } from 'typedi';
 import WilderService from '../services/wilder.service';
 import WilderCreateInput from '../inputs/wilderCreate.input';
@@ -8,9 +8,7 @@ import { Wilder } from '../models/Wilder.model';
 @Service()
 @Resolver(() => Wilder)
 class WilderResolver {
-  constructor(
-    private readonly wilderService: WilderService
-  ) {}
+  constructor(private readonly wilderService: WilderService) {}
 
   // Get all wilders
   @Query(() => [Wilder], {
