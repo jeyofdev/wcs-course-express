@@ -14,9 +14,25 @@ export const GET_WILDERS = gql`
   }
 `;
 
+export const GET_WILDER_BY_ID = gql`
+  query wilder($wilderId: String!) {
+    wilder(wilderId: $wilderId) {
+      id
+      name
+      city
+      skills {
+        id
+        title
+        votes
+      }
+    }
+  }
+`;
+
 export const CREATE_WILDER = gql`
   mutation postWilder($name: String!, $city: String!, $skills: [SkillInput!]!) {
     postWilder(name: $name, city: $city, skills: $skills) {
+      id
       name
       city
       skills {
@@ -27,23 +43,14 @@ export const CREATE_WILDER = gql`
   }
 `;
 
-export const UPDATE_WILDER = gql`
-  mutation updateWilder(
-    $updateWilderId: String!
-    $name: String
-    $city: String
-    $skills: [SkillInput!]
-  ) {
-    updateWilder(
-      id: $updateWilderId
-      name: $name
-      city: $city
-      skills: $skills
-    ) {
+export const REMOVE_WILDER = gql`
+  mutation removeWilder($id: String!) {
+    removeWilder(wilderId: $id) {
       id
       name
       city
       skills {
+        id
         title
         votes
       }

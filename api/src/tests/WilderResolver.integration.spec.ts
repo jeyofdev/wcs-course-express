@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import { getConnection } from 'typeorm';
 import getApolloServer from '../config/getAppolloServer';
 import databaseConnection from '../config/database.config';
-import { CREATE_WILDER, GET_WILDERS } from './queries';
+import { CREATE_WILDER, GET_WILDERS, REMOVE_WILDER } from './queries';
 import wilderModel from '../models/wilder.model';
 
 dotenv.config();
@@ -82,6 +82,7 @@ describe('Server API apollo graphql', () => {
       expect(result.data?.postWilder).toMatchInlineSnapshot(`
         Object {
           "city": "Bordeaux",
+          "id": "1",
           "name": "john",
           "skills": Array [],
         }
@@ -129,6 +130,49 @@ describe('Server API apollo graphql', () => {
           },
         ]
       `);
+    });
+
+    it('when a wilder is removed', async () => {
+      const postResult = await server.executeOperation({
+        query: CREATE_WILDER,
+        variables: {
+          name: 'john',
+          city: 'Bordeaux',
+          skills: [],
+        },
+      });
+
+      expect(postResult.data?.postWilder).toMatchInlineSnapshot(`
+        Object {
+          "city": "Bordeaux",
+          "id": "1",
+          "name": "john",
+          "skills": Array [],
+        }
+      `);
+
+      const removeResult = await server.executeOperation({
+        query: REMOVE_WILDER,
+        variables: {
+          id: '1',
+        },
+      });
+
+      expect(removeResult.data?.removeWilder).toMatchInlineSnapshot(`
+        Object {
+          "city": "Bordeaux",
+          "id": "1",
+          "name": "john",
+          "skills": Array [],
+        }
+      `);
+
+      const result = await server.executeOperation({
+        query: GET_WILDERS,
+      });
+
+      expect(result.errors).toBeUndefined();
+      expect(result?.data?.wilders).toStrictEqual([]);
     });
   });
 });
