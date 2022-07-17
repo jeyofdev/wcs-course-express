@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ApolloError, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { CREATE_WILDER, UPDATE_WILDER } from '../../queries/mutation';
 import { GET_WILDERS } from '../../queries/queries';
 import { notifyError, notifySuccess } from '../../utils/notifications';
@@ -124,20 +124,17 @@ const WilderForm = ({ method, wilder }: FormType) => {
                 </div>
 
                 {optionsSkills.map((skill) => (
-                    <>
-                        <Checkbox
-                            key={uuid()}
-                            label={skill?.value}
-                            name={skill?.value}
-                            checked={
-                                formDatas?.skills.filter(
-                                    (item: SkillType) =>
-                                        item.title === skill?.value
-                                ).length > 0
-                            }
-                            onChange={handleChangeSkill}
-                        />
-                    </>
+                    <Checkbox
+                        key={uuid()}
+                        label={skill?.value}
+                        name={skill?.value}
+                        checked={
+                            formDatas?.skills.filter(
+                                (item: SkillType) => item.title === skill?.value
+                            ).length > 0
+                        }
+                        onChange={handleChangeSkill}
+                    />
                 ))}
 
                 <Button className="bg-red-500 ml-0 mt-6">

@@ -57,3 +57,23 @@ export const REMOVE_WILDER = gql`
     }
   }
 `;
+
+export const UPDATE_WILDER = gql`
+  mutation updateWilder(
+    $id: String!
+    $name: String
+    $city: String
+    $skills: [SkillInput!]
+  ) {
+    updateWilder(id: $id, name: $name, city: $city, skills: $skills) {
+      id
+      name
+      city
+      skills {
+        id
+        title
+        votes
+      }
+    }
+  }
+`;

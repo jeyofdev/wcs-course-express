@@ -1,39 +1,43 @@
-# version: '3.9'
+version: '3.9'
 
-# services:
-#     api:
-#         build: ./api
-#         volumes:
-#             - ./api:/app
-#             - /app/node_modules
-#         depends_on:
-#             - database
-#             - database-test
-#         ports:
-#             - 4040:4000
-#         environment:
-#             - MONGO_URI=postgresql://postgres:database_password@database:5432/wild-app-alternance?schema=public
-#             - MONGO_URI_TEST=postgresql://postgres:database_password@database-test:5432/wild-app-alternance-test?schema=public
+services:
+    api:
+        build: ./api
+        volumes:
+            - ./api:/app
+            - /app/node_modules
+        depends_on:
+            - database
+            - database-test
+        ports:
+            - 4040:4000
+        environment:
+            - DATABASE_URL=postgresql://postgres:database_password@database:5432/postgres?schema=public
+            - DATABASE_URL_TEST=postgresql://postgres:database_password@database-test:5432/postgres?schema=public
 
-#     client:
-#         build: ./client
-#         ports:
-#             - 8080:3000
-#         depends_on:
-#             - api
-#         volumes:
-#             - ./client:/app
-#             - /app/node_modules
+    client:
+        build: ./client
+        ports:
+            - 8080:3000
+        depends_on:
+            - api
+        volumes:
+            - ./client:/app
+            - /app/node_modules
 
-#     database:
-#         image: postgres
-#         restart: always
-#         volumes:
-#             - postgres-volume:/var/lib/postgresql/data
+    database:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: database_password
+        volumes:
+            - postgres-volume:/var/lib/postgresql/data
 
-#     database-test:
-#         image: postgres
-#         restart: always
+    database-test:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: database_password
 
-# volumes:
-#     postgres-volume:
+volumes:
+    postgres-volume:

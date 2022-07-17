@@ -1,2 +1,2 @@
 echo "run test for client"
-docker compose exec client yarn test
+docker compose  -f docker-compose.dev.yml exec client yarn test

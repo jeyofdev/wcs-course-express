@@ -1,12 +1,12 @@
-# FROM node:lts-alpine
+FROM node:lts-alpine
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY package.json ./
-# COPY yarn.lock ./
+COPY package.json ./
+COPY yarn.lock ./
 
-# RUN yarn
+RUN yarn
 
-# COPY . ./
+COPY . ./
 
-# CMD yarn dev & npx nodemon -w package.json --exec "yarn"
+CMD yarn dev & npx nodemon -w package.json --exec "yarn"

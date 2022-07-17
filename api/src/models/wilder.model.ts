@@ -10,7 +10,7 @@ import {
 import Skill from './skill.model';
 
 @ObjectType({ description: 'Model for the wilders' })
-@Entity()
+@Entity('wilder')
 export class Wilder extends BaseEntity {
   @PrimaryGeneratedColumn()
   @Field(() => ID, {

@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { SkillName } from '../enums/skillName.enum';
 
 @ObjectType({ description: "Model for the wilder's skills" })
-@Entity()
+@Entity('skill')
 @InputType('SkillInput')
 class Skill {
   @PrimaryGeneratedColumn()

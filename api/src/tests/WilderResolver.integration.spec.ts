@@ -3,8 +3,12 @@ import * as dotenv from 'dotenv';
 import { getConnection } from 'typeorm';
 import getApolloServer from '../config/getAppolloServer';
 import databaseConnection from '../config/database.config';
-import { CREATE_WILDER, GET_WILDERS, REMOVE_WILDER } from './queries';
-import wilderModel from '../models/wilder.model';
+import {
+  CREATE_WILDER,
+  GET_WILDERS,
+  REMOVE_WILDER,
+  UPDATE_WILDER,
+} from './queries';
 
 dotenv.config();
 
@@ -60,23 +64,11 @@ describe('Server API apollo graphql', () => {
         },
       });
 
-      const wilder = await wilderModel.findOne({ name: 'john' });
-
-      expect(wilder).toBeDefined();
-      expect(wilder?.id).toBeDefined();
-      expect(wilder).toHaveProperty('id');
-      expect(wilder).toHaveProperty('city', 'Bordeaux');
-
-      expect(wilder).toMatchInlineSnapshot(`
-        Wilder {
-          "city": "Bordeaux",
-          "id": 1,
-          "name": "john",
-          "skills": undefined,
-        }
-      `);
-
       expect(result.errors).toBeUndefined();
+      expect(result.data?.postWilder).toBeDefined();
+      expect(result.data?.postWilder?.id).toBeDefined();
+      expect(result.data?.postWilder).toHaveProperty('id');
+      expect(result.data?.postWilder).toHaveProperty('city', 'Bordeaux');
       expect(result.data?.postWilder).toHaveProperty('skills', []);
 
       expect(result.data?.postWilder).toMatchInlineSnapshot(`

@@ -5,10 +5,7 @@ import Wilder from '../models/Wilder.model';
 /**
  * Connextion to database
  */
-const databaseConnection = async (
-  url: string,
-  logging: boolean = false
-) => {
+const databaseConnection = async (url: string, logging: boolean = false) => {
   await createConnection({
     type: 'postgres',
     url,
